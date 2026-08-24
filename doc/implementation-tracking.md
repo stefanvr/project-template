@@ -45,6 +45,14 @@ working rather than being skipped.
 - [x] Both skills hold the WIP limit → `workflow.md`, which now also says an override must be
       **recorded**. Writing the decline path is what surfaced that: a limit with an unrecorded
       exception is indistinguishable from no limit a week later
+- [x] **Ad hoc:** branching default corrected → `workflow.md`. `main` is the integration branch and
+      every goal gets a `goal/{slug}` feature branch; a long-running integration branch is now
+      recorded as **rejected with its reasons**, rather than merely absent, so it cannot return as
+      a fresh good idea. Found because this repository's own first twelve commits went straight to
+      `main`
+- [x] **Ad hoc:** the `Ad hoc:` convention itself → `workflow.md` §Work found mid-goal. Writing the
+      item above is what surfaced that v2 had dropped v1's convention without ever deciding to,
+      leaving no home for real work found mid-goal
 
 ---
 
