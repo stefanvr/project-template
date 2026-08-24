@@ -20,11 +20,40 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-*Empty. The next goal is in **Planning** and needs sign-off before it moves here.*
+### Goal: the loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow
+
+**Outcome:** the next goal can be taken from Backlog to a pushed branch using only `/plan-goal` and
+`/build-stage`, with `workflow.md` unopened.
+
+**Try it:** run `/plan-goal` on the `spec:coverage` backlog item, then `/build-stage` on the
+result. If either needs the workflow document open to know what happens next, the goal is not done.
+
+**Covers:** `workflow.md`'s per-goal loop, its two gates, and the promotion rule.
+
+**Signed off** 2026-08-25 — input given at the gate on all three open questions, which is the gate
+working rather than being skipped.
+
+- [x] Three standing decisions promoted into `workflow.md`: spec input requested at the planning
+      gate, git performed rather than narrated, promotion refused rather than prompted
+- [x] `/plan-goal` — the four movements, ending with the sign-off that asks for spec input.
+      *Nothing to promote beyond the skill itself, except the question bar* — a question answerable
+      by reading the repository is not a question for the user — which is operational and lives
+      where it is used
+- [x] `/build-stage` — branch, specify, stop at the second gate, implement one commit per item,
+      verify, refuse to tick without a promotion target, push. *Nothing to promote;* the boundary
+      it enforces (it never merges) was already written into `workflow.md`
+- [x] Both skills hold the WIP limit → `workflow.md`, which now also says an override must be
+      **recorded**. Writing the decline path is what surfaced that: a limit with an unrecorded
+      exception is indistinguishable from no limit a week later
 
 ---
 
 ## Planning
+
+*Empty. Goals are planned one at a time, when they are about to be built.*
+
+<details>
+<summary>The goal now in <b>Now</b>, as it was planned — kept once, as the worked example of this section</summary>
 
 ### Goal: the loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow
 
@@ -59,9 +88,13 @@ cover sign-off state surviving it.
   the wrong assumption while it is still a paragraph. Q&C already found the second gate valuable
   enough to write an opt-out for, which is evidence in both directions.
 
-**Proposal.** *Not written yet — waiting on the questions above.*
+**Proposal.** Two skills, plus the three standing decisions written into `workflow.md` first so the
+skills point at a document that already agrees with them. Checklist and **Try it** as they now
+appear in **Now**.
 
-**Sign-off:** ☐
+**Sign-off:** ☑ 2026-08-25.
+
+</details>
 
 ---
 
