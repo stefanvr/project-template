@@ -32,6 +32,10 @@ siding:
 **The WIP limit is one goal in Now.** Not a guideline. A second goal in progress means neither is
 being finished, and the first thing lost is the honesty of the tracking document.
 
+Overriding it is the reviewer's to do, explicitly — and the override is **recorded**: which goal
+was interrupted, and by what. An unrecorded second goal is how a WIP limit stops being real, since
+by the following week nobody can tell an exception from the normal state.
+
 ---
 
 ## Per goal
@@ -48,7 +52,14 @@ hour in the loop and the cheapest place to be wrong.
    seed from general knowledge and mark it `seeded`?" A question you can answer in a word is a
    good question; one that requires a design session was not ready to be asked.
 3. **Proposal.** The checklist, the **Try it** line, and which `DS-`/`IS-` rules the goal covers.
-4. **Sign-off.** Explicit. Nothing moves to **Now** without it.
+4. **Sign-off — and spec input now.** Explicit; nothing moves to **Now** without it. The sign-off
+   asks one further thing directly: **any input for the specification, give it now.**
+
+   That question is not politeness, it is the lesson of the previous build. Where input arrived
+   before the specification was written, the specification was right first time; where it did not,
+   it needed correcting afterwards. Asking at this gate is what turns the next gate into a review
+   rather than a rewrite — and it is what the old *"spec it and start"* opt-out was really
+   reaching for.
 
 **Answer the Try it line during planning, not after.** It is the sequencing rule's only real
 enforcement: a goal you cannot describe exercising depends on something that does not exist yet,
@@ -71,6 +82,13 @@ organized by journey and surface, not by goal, so a goal typically touches sever
 **Then stop and wait for explicit sign-off before writing implementation code.** The cheapest
 review gate in the loop: a wrong assumption costs a paragraph here and a day of rework once the
 code exists.
+
+**Two gates, and why the second survives.** This is the second — the goal itself was signed off at
+planning. It stays because the two catch different things: the first catches *building the wrong
+thing*, the second catches *building the right thing wrongly*. With the input question now asked at
+the first gate, this one is reviewing a specification written *with* that input, so it should be
+short. If it is regularly a rewrite rather than a review, the first gate is not doing its job and
+that is the thing to fix.
 
 **Opt-out.** When the reviewer explicitly says to skip the wait for a given goal — *"if there are
 no significant questions, spec it and start, I'll review after"* — then note any genuine open
@@ -119,6 +137,15 @@ Nothing merges before review. Then merge into the integration branch and push th
 branch was already pushed, its history survives on the remote independently rather than only
 implicitly inside the integration branch. Delete the branch once merged and confirmed.
 
+### Git is performed, not narrated
+
+**Standing preference.** `/build-stage` runs the git operations itself — creating the branch,
+committing per checklist item, and pushing before review. Recorded here rather than agreed again
+at the start of every goal.
+
+**It does not merge.** Review is a human gate, and a skill that merges has quietly removed one.
+The push in step 6 is the handoff; what happens after it is yours.
+
 ---
 
 ## Promote before you tick
@@ -147,6 +174,12 @@ Then the checklist line is one line — what was done, and where the knowledge w
 Compare that with carrying ten lines of narrative in the tracking document, where it is read once
 and then scrolled past forever. **The test is mechanical: delete the goal's text. If something is
 now missing, promotion was not finished.**
+
+**`/build-stage` will not tick an item until a promotion target is named.** *Nothing to promote* is
+an available answer and frequently the correct one — plenty of items teach nothing — but it has to
+be **given**, not arrived at by nobody asking. Prompting was the alternative, and a prompt is
+precisely what gets waved through on item nine of nine, which is the item most likely to have
+taught something.
 
 ## Defer honestly
 
