@@ -14,7 +14,10 @@ Read **Now** in `doc/implementation-tracking.md`.
 - **Empty** — stop. Say so, and offer `/plan-goal`.
 - **Present but not signed off** — stop. The sign-off is the gate; building without it is what the
   gate exists to prevent.
-- **Present and signed off** — proceed, resuming from the first unticked item if some are done.
+- **Present, signed off, items remaining** — proceed from the first unticked item.
+- **Present, signed off, every item ticked** — the work is done and the goal is waiting to land.
+  Skip to step 7. If the branch is not merged yet, say so and stop there; landing follows the merge,
+  and merging is not yours to do.
 
 ## 1. Branch
 
