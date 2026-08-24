@@ -6,9 +6,15 @@ and how documents stay true as work lands.
 **Not here.** Anything about the product. If a statement would still hold on a completely
 different project, it belongs here; if it would change, it belongs in one of the specifications.
 
-> **Integration branch for this project:** `{main | long-running branch name}`
+> **Integration branch:** `main`. One feature branch per goal, named `goal/{slug}`, merged back
+> after review.
 >
-> One of the two. Either works; not knowing which is in use is what causes trouble.
+> **A long-running integration branch is deliberately rejected, not merely unused.** The project
+> this flow was learned on ran a `build-vN` branch that reached `main` only at milestones, and it
+> was kept for historic reasons rather than chosen. The side effects were not chosen either:
+> `main` stopped being the thing under discussion, merges arrived in batches too large to review
+> as one change, and the branch outlived the reason it existed. A goal is already the unit of
+> review, so a second layer of long-lived branching buys nothing and costs that.
 
 ---
 
@@ -71,8 +77,12 @@ was written by someone who had not built the first four.
 
 ### 2. Branch
 
-One branch per goal, off the integration branch. Keeps the goal reviewable as a unit, and
+One feature branch per goal, `goal/{slug}`, off `main`. Keeps the goal reviewable as a unit, and
 reverting it a single operation.
+
+**Never commit a goal straight to `main`** — including small corrective work, which is exactly the
+kind that slips through because branching for it feels disproportionate. The branch is what makes
+review possible at all; work already on `main` can only be reviewed after the fact.
 
 ### 3. Specify, then stop
 
@@ -180,6 +190,16 @@ an available answer and frequently the correct one — plenty of items teach not
 be **given**, not arrived at by nobody asking. Prompting was the alternative, and a prompt is
 precisely what gets waved through on item nine of nine, which is the item most likely to have
 taught something.
+
+## Work found mid-goal
+
+Something real found while building, which belongs to the goal in progress, is added to its
+checklist as an **`Ad hoc:`** item and then treated like any other: promoted, then ticked. Not
+folded silently into a neighbouring item, and not left out because the plan failed to predict it.
+A checklist of clean ticks records a plan, not a build.
+
+Anything found that does **not** belong to this goal goes to **Backlog** or **Parked** instead.
+Adding it here is how a WIP limit of one quietly becomes a limit of one-plus-whatever-turned-up.
 
 ## Defer honestly
 

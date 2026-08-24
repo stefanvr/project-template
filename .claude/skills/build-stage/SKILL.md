@@ -18,8 +18,8 @@ Read **Now** in `doc/implementation-tracking.md`.
 
 ## 1. Branch
 
-Create the goal's branch off the integration branch named at the top of `workflow.md`. One branch
-per goal.
+Create `goal/{slug}` off `main`. One feature branch per goal, and **never commit a goal straight to
+`main`** — including small corrective work, which is the kind that slips through.
 
 **Git is performed, not narrated** — create it, do not describe how to. This is a standing
 preference, recorded in `workflow.md`.
