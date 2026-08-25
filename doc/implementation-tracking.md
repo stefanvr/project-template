@@ -19,13 +19,49 @@ test is mechanical: delete the text, and see whether anything is now missing.
 ---
 
 ## Now
+### Goal: a rule with no test, and a test citing a rule that no longer exists, are both findable by running a command
 
-*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
+**Outcome:** the identifier scheme in both specifications stops being a convention nobody checks —
+one command reports what is implemented, what is verified, and what cites a rule that has been
+retired.
+
+**Try it:** `node tools/spec-coverage.mjs` in this repository reports the template's own stub
+identifiers and exits 0, with none of the fourteen blockquoted example identifiers appearing in the
+report. `node --test tools/` passes, including a fixture where a test cites a retired `DS-9.9` and
+the tool exits 1.
+
+**Covers:** none — toolchain, not product behaviour.
+
+**Signed off** 2026-08-25. Input given at the gate: report **implementation and test coverage
+separately**, so a rule shows as implemented, tested, both, or neither. *Implemented but untested* is
+the gap most worth seeing, and letting a module citation count as coverage would hide exactly that.
+
+- [x] `tools/spec-coverage.mjs`, with the implementation scan and the configuration → the tool
+      itself. **One commit for three checklist items:** they are three behaviours of one file that
+      could not land separately, which is the checklist-overlap rule failing again — now sharpened
+      in `plan-goal` from *different files* to *can these be committed separately*
+      - Verified against this repository: 3 declared stubs found, all 14 blockquoted example
+        identifiers correctly excluded, exit 0. Against the fixtures: exit 1 on a dead citation
+      - `tools/fixtures/package.json` is what actually exercises the configuration path. Without it
+        the fixtures fell back to defaults and found nothing, and the path was silently untested
+- [x] `tools/spec-coverage.test.mjs` — 7 tests under `node --test`. **The invocation is
+      `node --test "tools/**/*.test.mjs"`, not `node --test tools/`:** a bare directory is treated
+      as a module to run and fails outright. The **Try it** line said the latter and was wrong
+- [x] **Ad hoc:** two false negatives came from the measuring harness rather than the tool →
+      nothing new to promote, because `workflow.md`'s *suspect the scratch script before the system*
+      and `environment.md` silent failure 5 both already cover it, and both proved themselves again.
+      The tool exits 1 on a dead citation and always did; `$CODE` crossing the WSL boundary arrived
+      empty, which made every exit-code reading untrustworthy
+- [x] `spec:coverage` wired into the recipe, and the `RECIPE.md` line explaining its absence
+      deleted → the recipe. *Nothing to promote:* the rule that a script name must point at
+      something real is already in `/scaffold`, and this is that rule being honoured rather than a
+      new lesson
+- [x] Journey end-to-end coverage moved onto the `/sanity-check` backlog item → **Backlog**, with
+      what it needs written out so the goal is plannable by someone who was not in this conversation
 
 ---
 
 ## Planning
-
 *Empty. Goals are planned one at a time, when they are about to be built.*
 
 <details>
@@ -79,16 +115,6 @@ appear in **Now**.
 Goals, not tasks. Each is one line stating an outcome; it gets its checklist when it reaches
 Planning, not before.
 
-- [ ] **A rule with no test, and a test citing a rule that no longer exists, are both findable by
-      running a command.** `tools/spec-coverage.mjs`, reading `DS-`/`IS-` identifiers.
-      - **Settled at its planning gate, before it was deferred:** the tool is **runner-agnostic** —
-        it reads identifiers out of test *names* and never parses a runner's output, because Q&C
-        uses `node:test`, Garden uses Vitest, and both use Playwright. It **ships as a file in the
-        template**, with `/scaffold` adding only the npm script and the per-project paths, since
-        the logic is identical everywhere and only the paths are not.
-      - **Carries a forward obligation from the journeys goal:** a journey whose named surfaces are
-        never exercised together by any end-to-end test must be reported. That is the only coverage
-        a journey has, since journeys deliberately carry no identifiers.
 - [ ] **The documents can be audited against the code in one pass.** `/sanity-check`, which runs the
       coverage script and adds the judgement calls it cannot make.
       - **Carries a forward obligation from the domain-spec goal:** it must report **ceremonial
@@ -97,8 +123,12 @@ Planning, not before.
         symptoms of event storming being forced onto something that is not a workflow, which is the
         failure mode most likely to bite. Defined in [domain-spec.md](domain-spec.md)'s *When it
         does not fit*; nothing enforces it yet.
-      - **And one from the journeys goal:** the backbone diagram and the journey steps must agree in
-        both directions.
+      - **And two from the journeys goal:** the backbone diagram and the journey steps must agree
+        in both directions; and a journey whose named surfaces are never exercised together by any
+        end-to-end test must be reported. The second is the only coverage a journey has, since
+        journeys deliberately carry no identifiers — it needs `*Surfaces: §n …*` resolved to `IS-`
+        identifiers, then an end-to-end file citing all of them together. Moved here from the
+        coverage goal, which kept itself to the mechanical check.
 - [ ] **The remaining supporting documents exist in v2 shape.** `style-guide` and `design-guide`,
       each reduced to its Owns/Not here header plus what a real project fills in. `tech-spec` and
       `environment` moved into the scaffold goal, which writes into them — and the SSH-and-WSL

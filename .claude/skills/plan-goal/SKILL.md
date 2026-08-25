@@ -84,10 +84,14 @@ Three things:
   release gap and coverage report mean something. A toolchain or process goal implements no rule, so
   **Covers** is legitimately empty: say so plainly rather than inventing an identifier to fill it.
 
-**Check the checklist does not count one artifact several times.** Three items describing one file
-is three ticks for one change, and it leaves the plan looking more right than it was. It has
-happened: a skill, its git steps, and the document it writes were listed separately, and writing the
-skill once delivered all three.
+**Check the checklist does not count one thing several times.** The test is not *are these
+different files* — it is **can these be committed separately**. If two items must land in the same
+commit, they are one item, and listing them apart leaves the plan looking more right than it was.
+
+Stating this in terms of files was not enough, and it failed twice. First a skill, its git steps and
+the document it writes were listed separately, and writing the skill once delivered all three. Then
+three behaviours of a single tool were listed apart, written in one pass, and produced one commit
+for three ticks.
 
 ### 4. Sign-off, and spec input
 
