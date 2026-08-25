@@ -40,12 +40,11 @@ flow-and-constraints one — are **deliberately left out**: the second is not we
 the workflow already has both baked in more or less. Introduce them later if they earn it, rather
 than writing a half-stated rule into a document whose whole value is that its rules are precise.
 
-- [ ] `doc/design-guide.md` — the universal shape rules, shipped filled in rather than as a stub:
-      SRP, ports and adapters via factory, DRY at the business level, the command/query split, and
-      v1's conventions reframed (comments explaining why-not-the-obvious, seeded randomness with
-      deterministic tie-breaks, dev affordances built and gated, scratch work leaving no trace).
-      Each architectural rule carries its **when not to**. Includes the module-header **citation
-      format**, which `tools/spec-coverage.mjs` already depends on and no document states
+- [x] `doc/design-guide.md` → the document itself, shipped filled in, each architectural rule
+      carrying its **when not to**. **Closes a real gap:** the module-header citation format —
+      bracketed `[DS-n.n]` — is now stated as a rule, and `tools/spec-coverage.mjs` had been
+      depending on it with no document saying so, which meant a carefully written comment could
+      read as unimplemented
 - [ ] `doc/style-guide.md` — v1's structure as empty scaffolding, plus the note that it is written
       when there is a first thing to look at, not before
 - [ ] `doc/tech-spec.md` — restore what v2 dropped: **Architecture** for this project's own rules
