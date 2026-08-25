@@ -26,7 +26,48 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Planning
 
-*Empty. Goals are planned one at a time, when they are about to be built.*
+### Goal: a rule with no test, and a test citing a rule that no longer exists, are both findable by running a command
+
+**Discussion.** The identifier scheme in both specifications is inert until something reads it, and
+`spec:coverage` is already promised in five places — `CLAUDE.md`, `domain-spec.md`, `build-stage`,
+`scaffold` and the recipe's `RECIPE.md`, the last of which deliberately omits the npm script because
+the tool did not exist. This goal is what makes those promises true.
+
+The DRY check is clean: the conventions are already decided elsewhere, and this reads them rather
+than restating them.
+
+**Carried from this goal's earlier planning gate**, before it was deferred for `/scaffold`: the tool
+is **runner-agnostic**, reading identifiers out of test *names* rather than parsing any runner's
+output, because Q&C uses `node:test`, Garden uses Vitest and both use Playwright. It **ships as a
+file in the template**, with `/scaffold` adding only the npm script and the per-project paths.
+
+**Settled by reading the repository rather than by asking:**
+
+- The identifier format is `**[DS-n.n]**` and `**[IS-n.n]**`, bolded and bracketed.
+- Tests citing identifiers *in their names* is already asserted in `build-stage` and `CLAUDE.md`, so
+  it is a convention to implement, not a decision to make.
+- **Fourteen identifiers currently sit inside blockquoted illustrative examples** — seven in each
+  specification. The tool must skip lines beginning `>` or it will report the template's own worked
+  examples as uncovered rules, which would make its first run noise.
+- Defaults with no configuration: specifications from `doc/*-spec.md`, tests from `test/**` and
+  `e2e/**`. `/scaffold` overrides them per project.
+- This goal must also add the `spec:coverage` script to the recipe and delete the `RECIPE.md` line
+  explaining its absence.
+
+**Open questions** — the repository cannot answer these:
+
+- **What should a rule with no test do to the exit code?** A dead citation — a test naming an
+  identifier that no longer exists — is unambiguously wrong and should fail. An *uncovered* rule is
+  different: mid-build most rules have no test yet, so failing on those makes the command red from
+  the first day and therefore ignored.
+- **Does journey end-to-end coverage belong in this goal or in `/sanity-check`?** It is the only
+  coverage a journey has, since journeys carry no identifiers deliberately. But it needs mapping
+  `*Surfaces: §1 … · §2 …*` to `IS-` identifiers and then finding an end-to-end file citing all of
+  them together — meaningfully more parsing than the two-direction identifier check.
+
+**Proposal.** *Not written yet — waiting on the questions above.*
+
+**Sign-off:** ☐
 
 <details>
 <summary>The loop goal, as it was planned — kept once, as the worked example of this section</summary>
