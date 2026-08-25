@@ -15,7 +15,12 @@ different directions.
   for you. `actions/configure-pages` advertises `enablement: true` for exactly this, and it was
   tried on a real repository: it fails with *Resource not accessible by integration*, because
   creating a Pages site is beyond what the default workflow token may do. Observed, not assumed.
-- **Node from `.nvmrc`.** CI reads the same file the developer's shell does, so they cannot drift.
+- **Node 24 LTS, pinned in `.nvmrc`.** CI reads the same file the developer's shell does, so the
+  two cannot drift apart. Pinned to the current Active LTS rather than to whatever happens to be
+  installed: Node 20 reached end of life in April 2026, and a template shipping an end-of-life
+  runtime hands every project it creates a problem nobody chose. Bumping it means `nvm install 24`
+  on each machine before anything runs — which is a real cost, and still smaller than the one it
+  avoids.
 - **`main` is the integration branch**, matching `workflow.md`.
 
 ## What it deliberately leaves out
