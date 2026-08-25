@@ -26,43 +26,39 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Planning
 
-### Goal: a rule with no test, and a test citing a rule that no longer exists, are both findable by running a command
+### Goal: a new project reaches a working, tested skeleton without re-solving the toolchain
 
-**Discussion.** This is the goal that turns the specification-to-test binding from an intention into
-something mechanical. Three things already depend on it: `CLAUDE.md` tells every session that
-`npm run spec:coverage` exists, the identifier scheme in both specifications is inert without
-something that reads it, and three forward obligations are parked on this item — ceremonial
-stickies, backbone-versus-journey drift, and journeys with no end-to-end coverage.
+**Discussion.** Promoted ahead of `spec:coverage` at that goal's own planning gate. The template
+currently cannot start a project at all, which makes this the thinnest slice that reaches end to
+end — and it creates the `package.json` the coverage script would have needed anyway, so building
+it first removes a retrofit rather than adding one.
 
-The DRY check comes back clean: the identifier conventions are already decided elsewhere (`DS-` on
-any block type, `IS-` on surfaces only, journeys naming the surfaces they cross). This goal *reads*
-those conventions, it does not restate them.
+**It never runs in this repository.** A project is created by copying the template and scaffolding
+*inside the copy*; scaffolding here would turn the template into an application. A `.dev-template`
+marker file at the root makes that mechanical rather than a thing to remember: `/scaffold` refuses
+to run beside it, and copying a new project deletes it. Verification uses a throwaway sibling
+directory, deleted afterwards.
 
-One design point settled by reading rather than asking: the tool must be **runner-agnostic**, so it
-reads identifiers out of test *names* rather than parsing any runner's output. Q&C uses
-`node:test`, Garden uses Vitest, both use Playwright; parsing output would bind the template to one
-of them and break on the next project.
+**Recipes, not a starter directory.** A recipe is a directory inside the skill holding a proven
+setup; the skill picks one and adapts it, or goes freehand when none fits. Promoting a setup that
+worked is then adding a folder, which is what makes this cheaper than v1's single `starter/`.
 
-**What the repository actually contains**, checked rather than assumed: no `package.json`, no
-`tools/`, no `src/`, no `test/`, and zero test files. Node 20 is available. The eight `DS-` and
-seven `IS-` identifiers that exist sit almost entirely inside the delete-me illustrative blocks.
-
-That last paragraph is the problem, and it is what the **Try it** discipline is for. This goal can
-be built and unit-tested against fixtures, but its Try it can only honestly read *"it reports
-correctly against a fixture"* — never *"it found a real gap"*, because there is no real corpus here
-to find one in.
+Two decisions carried in from the `spec:coverage` planning conversation, because this goal creates
+the file they land in: the coverage script ships as `tools/spec-coverage.mjs` in the template, and
+`/scaffold` adds only the npm script and the per-project paths.
 
 **Open questions** — asked because the repository cannot answer them:
 
-- **Sequencing.** Does this come before `/scaffold`, or after? Building `/scaffold` first means the
-  first real project carries the coverage check from day one and this goal's Try it becomes real.
-  Building this first means the tooling exists to be scaffolded *in*.
-- **Shipping.** Does the tool ship as a file in the template that every project inherits, or does
-  `/scaffold` write it? It is process tooling and identical for every project, which argues for a
-  template file — but that cuts against the decision that scaffolding is a skill with recipes.
-- **Scope.** One goal or two? The mechanical script and the judgement-based `/sanity-check` audit
-  fail differently and are reached for at different moments, which is the SRP argument for
-  splitting them.
+- **Which recipes ship first?** The two real projects point at two: a static or SPA site on GitHub
+  Pages with `node:test` and Playwright, and a Vite/TypeScript app on Firebase Hosting with Vitest,
+  Playwright and Firestore. Both, one, or neither to begin with?
+- **Does `/scaffold` create the git repository and its remote?** We just lost time to a workflow
+  that said *push before review* while no remote existed. Creating one needs `gh`, which is not
+  installed on either side of this machine.
+- **Does the skeleton deploy on day one?** Garden's first stage deployed before there was anything
+  worth deploying, and it flushed out two failures — a service account with hosting rights only,
+  and an unregistered default bucket — that were invisible to every local test. It also makes this
+  goal much larger, and needs cloud accounts to exist.
 
 **Proposal.** *Not written yet — waiting on the questions above.*
 
@@ -121,20 +117,25 @@ Goals, not tasks. Each is one line stating an outcome; it gets its checklist whe
 Planning, not before.
 
 - [ ] **A rule with no test, and a test citing a rule that no longer exists, are both findable by
-      running a command.** `DS-`/`IS-` identifiers, `spec:coverage`, and `/sanity-check` on top.
-      - **Carries a forward obligation from the domain-spec goal:** `/sanity-check` must report
-        **ceremonial stickies** — an event nothing subscribes to, a command whose only actor is
-        "the system" with no policy triggering it, an event named noun-plus-*Updated*. These are
-        the three mechanical symptoms of event storming being forced onto something that is not a
-        workflow, which is the failure mode most likely to bite. Defined in
-        [domain-spec.md](domain-spec.md)'s *When it does not fit*; nothing enforces it yet.
-      - **And two from the journeys goal:** the backbone diagram and the journey steps must agree
-        in both directions, and a journey whose named surfaces are never exercised together by any
-        end-to-end test must be reported. The second is the only coverage a journey has, since
-        journeys deliberately carry no identifiers.
-- [ ] **A new project reaches a deployed, tested skeleton without re-solving the toolchain.**
-      `/scaffold` with recipes, writing `tech-spec.md` and `environment.md` as it goes. Recipes are
-      directories in the skill — a proven setup is promoted by adding one.
+      running a command.** `tools/spec-coverage.mjs`, reading `DS-`/`IS-` identifiers.
+      - **Settled at its planning gate, before it was deferred:** the tool is **runner-agnostic** —
+        it reads identifiers out of test *names* and never parses a runner's output, because Q&C
+        uses `node:test`, Garden uses Vitest, and both use Playwright. It **ships as a file in the
+        template**, with `/scaffold` adding only the npm script and the per-project paths, since
+        the logic is identical everywhere and only the paths are not.
+      - **Carries a forward obligation from the journeys goal:** a journey whose named surfaces are
+        never exercised together by any end-to-end test must be reported. That is the only coverage
+        a journey has, since journeys deliberately carry no identifiers.
+- [ ] **The documents can be audited against the code in one pass.** `/sanity-check`, which runs the
+      coverage script and adds the judgement calls it cannot make.
+      - **Carries a forward obligation from the domain-spec goal:** it must report **ceremonial
+        stickies** — an event nothing subscribes to, a command whose only actor is "the system" with
+        no policy triggering it, an event named noun-plus-*Updated*. These are the three mechanical
+        symptoms of event storming being forced onto something that is not a workflow, which is the
+        failure mode most likely to bite. Defined in [domain-spec.md](domain-spec.md)'s *When it
+        does not fit*; nothing enforces it yet.
+      - **And one from the journeys goal:** the backbone diagram and the journey steps must agree in
+        both directions.
 - [ ] **The supporting documents exist in v2 shape.** `tech-spec`, `environment`, `style-guide`,
       `design-guide` — each reduced to its Owns/Not here header plus what a real project fills in.
       - **Carries a forward obligation:** `environment.md` must record that the GitHub remote is
