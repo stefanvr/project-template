@@ -20,47 +20,7 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-### Goal: the loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow
-
-**Outcome:** the next goal can be taken from Backlog to a pushed branch using only `/plan-goal` and
-`/build-stage`, with `workflow.md` unopened.
-
-**Try it:** run `/plan-goal` on the `spec:coverage` backlog item, then `/build-stage` on the
-result. If either needs the workflow document open to know what happens next, the goal is not done.
-
-**Covers:** `workflow.md`'s per-goal loop, its two gates, and the promotion rule.
-
-**Signed off** 2026-08-25 — input given at the gate on all three open questions, which is the gate
-working rather than being skipped.
-
-- [x] Three standing decisions promoted into `workflow.md`: spec input requested at the planning
-      gate, git performed rather than narrated, promotion refused rather than prompted
-- [x] `/plan-goal` — the four movements, ending with the sign-off that asks for spec input.
-      *Nothing to promote beyond the skill itself, except the question bar* — a question answerable
-      by reading the repository is not a question for the user — which is operational and lives
-      where it is used
-- [x] `/build-stage` — branch, specify, stop at the second gate, implement one commit per item,
-      verify, refuse to tick without a promotion target, push. *Nothing to promote;* the boundary
-      it enforces (it never merges) was already written into `workflow.md`
-- [x] Both skills hold the WIP limit → `workflow.md`, which now also says an override must be
-      **recorded**. Writing the decline path is what surfaced that: a limit with an unrecorded
-      exception is indistinguishable from no limit a week later
-- [x] **Ad hoc:** branching default corrected → `workflow.md`. `main` is the integration branch and
-      every goal gets a `goal/{slug}` feature branch; a long-running integration branch is now
-      recorded as **rejected with its reasons**, rather than merely absent, so it cannot return as
-      a fresh good idea. Found because this repository's own first twelve commits went straight to
-      `main`
-- [x] **Ad hoc:** the `Ad hoc:` convention itself → `workflow.md` §Work found mid-goal. Writing the
-      item above is what surfaced that v2 had dropped v1's convention without ever deciding to,
-      leaving no home for real work found mid-goal
-- [x] **Ad hoc:** remote added and both branches pushed, so the workflow's step 6 is satisfiable at
-      all → the SSH-rather-than-HTTPS finding is recorded as a forward obligation on the
-      supporting-documents goal, because `environment.md` does not exist yet to receive it
-- [x] **Ad hoc:** both skills now distinguish *in progress* from *done but not landed*, and each
-      refusal names the next command → the skills themselves. Found by running the **Try it** line:
-      `/plan-goal` refused correctly but told the user to "finish" a goal whose every item was
-      already ticked, and offered no route onward, while `/build-stage` had no defined behaviour
-      for an all-ticked goal at all. Two skills each correctly saying no is a dead end, not a gate
+*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
 
 ---
 
@@ -69,7 +29,7 @@ working rather than being skipped.
 *Empty. Goals are planned one at a time, when they are about to be built.*
 
 <details>
-<summary>The goal now in <b>Now</b>, as it was planned — kept once, as the worked example of this section</summary>
+<summary>The loop goal, as it was planned — kept once, as the worked example of this section</summary>
 
 ### Goal: the loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow
 
@@ -177,3 +137,4 @@ carries identifiers — until then, deliberately empty rather than guessed at.
 | The process that builds the rest of this template exists and governs its own construction | 2026-08-25 | `workflow.md` (goal loop, four planning movements, promotion rule) · `implementation-tracking.md` (Kanban states, WIP limit, deletion rule) · `README.md`, `CLAUDE.md` (decision routing) · `code-conventions.md` renamed `design-guide.md`, reframed as design and architecture guidance |
 | The domain can be captured as an event storm, iteratively, without the research leaking into it | 2026-08-25 | `domain-spec.md` (block vocabulary, `DS-n.n` identifiers, `[?Hn]` open-item references, *When it does not fit*) · `.claude/skills/event-storm` (interview style, one area per session, past-tense events sharing the code's names) · `.claude/skills/discover` (frozen input artifacts, the freeze rule) |
 | The journeys through a product can be written down, and sliced into goals | 2026-08-25 | `implementation-spec.md` (strict journey/surface split, `IS-n.n` on surfaces only with journeys naming the surfaces they cross, mermaid backbone, *Future — how this might work*) · `.claude/skills/story-map` (propose-then-walk rather than interview, slices never layers, surfaces written per goal not up front) |
+| The loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow | 2026-08-25 | `workflow.md` (spec input asked at the planning gate · git performed on instruction, never on the skill's own judgement · promotion refused rather than prompted · WIP overrides recorded · `main` as integration branch, long-running branches rejected with reasons · §Work found mid-goal · landing needs its own branch) · `.claude/skills/plan-goal` and `.claude/skills/build-stage` (the loop itself; refusals that name the next command; in-progress distinguished from done-but-not-landed) · **Backlog** (SSH-not-HTTPS and git-inside-WSL, as a forward obligation on the `environment.md` goal) |

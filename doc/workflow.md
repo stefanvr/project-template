@@ -150,11 +150,16 @@ implicitly inside the integration branch. Delete the branch once merged and conf
 ### Git is performed, not narrated
 
 **Standing preference.** `/build-stage` runs the git operations itself — creating the branch,
-committing per checklist item, and pushing before review. Recorded here rather than agreed again
-at the start of every goal.
+committing per checklist item, pushing before review, and **merging once told to**. Recorded here
+rather than agreed again at the start of every goal.
 
-**It does not merge.** Review is a human gate, and a skill that merges has quietly removed one.
-The push in step 6 is the handoff; what happens after it is yours.
+**The gate is the review, not the typing.** A merge never happens on the skill's own judgement; it
+happens on an explicit instruction, after the reviewer has read the diff. That is what keeps the
+gate real. Refusing to merge *after* being told to adds no safety — it hands a command list back to
+someone who has already made the decision, which is friction wearing the costume of rigour.
+
+**Landing a goal is itself a file change**, so it happens on its own branch like any other work,
+and is reviewed like any other work. It is not a tidy-up commit on `main`.
 
 ---
 
