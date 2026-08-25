@@ -81,7 +81,13 @@ Three things:
   answer. **If you cannot write this line, the goal depends on something that does not exist yet** —
   say so now, which costs a sentence, rather than discovering it mid-build.
 - **Covers** — the `DS-` and `IS-` identifiers this goal implements. This is what later makes the
-  release gap and coverage report mean something.
+  release gap and coverage report mean something. A toolchain or process goal implements no rule, so
+  **Covers** is legitimately empty: say so plainly rather than inventing an identifier to fill it.
+
+**Check the checklist does not count one artifact several times.** Three items describing one file
+is three ticks for one change, and it leaves the plan looking more right than it was. It has
+happened: a skill, its git steps, and the document it writes were listed separately, and writing the
+skill once delivered all three.
 
 ### 4. Sign-off, and spec input
 

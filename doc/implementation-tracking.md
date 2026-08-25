@@ -20,77 +20,7 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-### Goal: a new project reaches a working, tested skeleton without re-solving the toolchain
-
-**Outcome:** copying this template and running `/scaffold` produces a project that builds, tests and
-deploys, with its `tech-spec.md` and `environment.md` written as the setup happens rather than
-reconstructed afterwards.
-
-**Try it:** copy the template to a throwaway sibling directory, run `/scaffold`, answer the
-interview. Afterwards `npm test` and `npm run test:e2e` pass, `git log` shows the scaffold commit,
-and once pushed the live URL shows a build identifier matching `main`. Then delete the directory and
-confirm this repository is untouched.
-
-**Covers:** none. This goal is toolchain, not product behaviour, so it implements no `DS-` or `IS-`
-identifier. The **Covers** field not fitting a meta-goal is a small format finding, to be promoted
-if it recurs.
-
-**Signed off** 2026-08-25. Input given at the gate: the first recipe deploys to **GitHub Pages** —
-runnable today with no account to provision and no billing, with the Firebase shape arriving as
-recipe two, promoted from a real project rather than pre-built.
-
-- [x] `.dev-template` marker at the repository root → the file itself, plus a **Starting a project**
-      section in `README.md`. The guard needed somewhere to send you, or refusing is just a wall
-- [x] `doc/tech-spec.md` and `doc/environment.md` in v2 shape → both documents, and the
-      supporting-documents backlog item narrowed to what is left of it. `environment.md` discharges
-      the SSH-and-WSL forward obligation, and gained a fourth silent failure found while writing it:
-      heredocs and apostrophes nested inside a shell command string break with an error pointing
-      somewhere unrelated
-- [x] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, the guard, git with
-      a verified remote, and deploy-on-day-one. *Nothing new to promote:* every rule in it was
-      already settled in `workflow.md` or `environment.md`, which is what a skill carrying
-      procedure rather than rationale should look like
-- [x] `recipes/vite-ts/` with `RECIPE.md` → the recipe carries its own reasoning, which is what a
-      recipe is for. Verified by scaffolding it: install clean, `typecheck` clean, 3 unit tests and
-      6 end-to-end tests passing at both viewports. The vitest/vite config split is deliberate and
-      load-bearing — unit tests must see the identifier *absent* so the `unknown` fallback is the
-      path under test rather than dead code
-- [x] Deploy pipeline: typecheck, unit and end-to-end tests all run **before** anything publishes,
-      so a red build cannot reach the live site. Verified locally that the Pages subpath build is
-      right — assets resolve under `/{repo}/`, which is the failure that 404s every script on a
-      site that otherwise looks fine — and that the identifier is injected into the bundle
-- [x] Git: `init`, the recipe's `.gitignore`, first commit, then the guided-and-verified remote →
-      the skill half landed with item 3, the `.gitignore` with the recipe
-- [x] `environment.md` written *as the console steps are done* → the rule landed inside
-      `/scaffold` with item 3, rather than needing a change of its own. **Planning overlap worth
-      noting:** items 3, 6 and 7 all describe one artifact, so the checklist counted the skill
-      three times. Item 6 is genuinely still open, but only for the `.gitignore` the recipe
-      carries — its skill half is written
-- [x] Verified by scaffolding it for real → the recipe, `/scaffold`, `workflow.md`. Locally:
-      install, typecheck, 3 unit tests, 6 end-to-end tests at both viewports, the Pages subpath
-      build. Then on a real repository: CI green through `npm ci`, typecheck, unit tests and
-      end-to-end, and the live page reading `95af1e7` — matching `origin/main` exactly. The deploy
-      **confirmed rather than assumed**, which is the entire reason the identifier exists
-- [x] **Ad hoc:** three defects found by the first real CI runs, none of them visible to any local
-      test → the recipe and `/scaffold`. No committed lockfile, so `setup-node` failed on its
-      dependency cache before a single test ran; `checkout` and `setup-node` at v4 being forced onto
-      Node 24 by the runner; and `configure-pages`'s `enablement: true` failing with *Resource not
-      accessible by integration*, which reverted a change made an hour earlier that had been
-      reasoned about rather than observed. That reason is written **inside the workflow file**, so
-      the next person reading the action's documentation does not re-add it in good faith
-- [x] **Ad hoc:** `.nvmrc` moved off the end-of-life Node 20 to 24 LTS → the recipe and `RECIPE.md`,
-      which records that each machine needs `nvm install 24` first. Verified by the pipeline itself
-      rather than a manual retest, since CI installs from `.nvmrc`
-- [x] **Ad hoc:** *suspect the scratch script before the system* → `workflow.md` step 5. A
-      verification script here reported a deploy mismatch that did not exist, because it searched
-      for a string the bundle only assembles at runtime
-- [x] **Ad hoc:** installing a Node version is not the same as selecting it → `environment.md`,
-      silent failure 1. Node 24 was installed but nvm's default alias still resolved to 20, so a
-      fresh interactive shell ran 20 against an `.nvmrc` saying 24, with CI honouring 24. Both
-      succeed and merely run different runtimes. Found by checking `node -v` rather than trusting
-      that an install had taken effect — the direct consequence of this goal's own `.nvmrc` bump
-- [x] **Promoted earlier from the same goal:** `environment.md` silent failure 5 — a variable
-      crossing the WSL boundary arriving empty, turning `cp -r $R/.` into `cp -r /.`
+*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
 
 ---
 
@@ -203,4 +133,5 @@ carries identifiers — until then, deliberately empty rather than guessed at.
 | The process that builds the rest of this template exists and governs its own construction | 2026-08-25 | `workflow.md` (goal loop, four planning movements, promotion rule) · `implementation-tracking.md` (Kanban states, WIP limit, deletion rule) · `README.md`, `CLAUDE.md` (decision routing) · `code-conventions.md` renamed `design-guide.md`, reframed as design and architecture guidance |
 | The domain can be captured as an event storm, iteratively, without the research leaking into it | 2026-08-25 | `domain-spec.md` (block vocabulary, `DS-n.n` identifiers, `[?Hn]` open-item references, *When it does not fit*) · `.claude/skills/event-storm` (interview style, one area per session, past-tense events sharing the code's names) · `.claude/skills/discover` (frozen input artifacts, the freeze rule) |
 | The journeys through a product can be written down, and sliced into goals | 2026-08-25 | `implementation-spec.md` (strict journey/surface split, `IS-n.n` on surfaces only with journeys naming the surfaces they cross, mermaid backbone, *Future — how this might work*) · `.claude/skills/story-map` (propose-then-walk rather than interview, slices never layers, surfaces written per goal not up front) |
+| A new project reaches a working, tested skeleton without re-solving the toolchain | 2026-08-25 | `.claude/skills/scaffold` (the `.dev-template` guard, the interview, install-before-commit, guided-and-verified remote and Pages, deploy-on-day-one) · `recipes/vite-ts` with `RECIPE.md` (Node 24 LTS, why no lockfile ships, `configure-pages` rejected in place with its evidence) · `doc/tech-spec.md` and `doc/environment.md` in v2 shape, the latter carrying silent failures 1–5 · `doc/workflow.md` (suspect the scratch script before the system) · `.claude/skills/plan-goal` (checklists that count one artifact twice; empty **Covers** on a toolchain goal) · `README.md` (Starting a project) |
 | The loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow | 2026-08-25 | `workflow.md` (spec input asked at the planning gate · git performed on instruction, never on the skill's own judgement · promotion refused rather than prompted · WIP overrides recorded · `main` as integration branch, long-running branches rejected with reasons · §Work found mid-goal · landing needs its own branch) · `.claude/skills/plan-goal` and `.claude/skills/build-stage` (the loop itself; refusals that name the next command; in-progress distinguished from done-but-not-landed) · **Backlog** (SSH-not-HTTPS and git-inside-WSL, as a forward obligation on the `environment.md` goal) |
