@@ -20,7 +20,29 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
+### Goal: a project copied from the template starts clean, and the copy sequence is stated once
+
+**Outcome:** following the copy sequence leaves nothing of the template's own behind, and the
+sequence exists in one place rather than three that can drift apart.
+
+**Try it:** copy the template to a scratch directory, follow `.dev-template`, then grep the result
+for the word *template* — nothing describing the dev template itself remains. Delete the scratch
+directory afterwards.
+
+**Covers:** none — process documents.
+
+**Signed off** 2026-08-25, with **movements 1 and 2 collapsed**: there were no open questions, both
+defects were found and decided in the same message. That collapsing is now a rule rather than a
+corner cut — see the third item.
+
+- [x] `.dev-template` now names `README.md` — every project would otherwise inherit one describing
+      the template — and settles `tools/`: **keep it in full**, tests and fixtures included, because
+      the tools ship into every project as code, and code that ships untested is what
+      `design-guide.md` argues against. It also says what *not* to delete: `environment.md`'s silent
+      failures are about the machine and stay true everywhere
+- [ ] The sequence is stated **once**, in `.dev-template`; `README.md` and `/scaffold` point at it
+- [ ] The gate is proportional: a goal with no open questions is planned in one message →
+      `workflow.md` and `/plan-goal`
 
 ---
 
