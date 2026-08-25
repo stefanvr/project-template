@@ -30,8 +30,6 @@ different directions.
   when a real screen makes the case, and record the choice in `tech-spec.md`.
 - **No CSS framework, no component library.** `style-guide.md` is where the visual decisions go, and
   it is written when there is a first thing to look at.
-- **No `spec:coverage` script.** The tool does not exist yet. A script name pointing at a missing
-  script is worse than an absent one; it arrives with the goal that builds it.
 - **No linter or formatter.** Not because they are wrong, but because they are a preference this
   recipe should not impose. `design-guide.md` owns code shape.
 - **No state management, router, or data layer.** Nothing here has any state to manage yet.

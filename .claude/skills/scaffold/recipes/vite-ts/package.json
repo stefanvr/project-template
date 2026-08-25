@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "spec:coverage": "node tools/spec-coverage.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",

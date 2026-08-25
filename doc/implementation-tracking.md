@@ -52,8 +52,10 @@ the gap most worth seeing, and letting a module citation count as coverage would
       and `environment.md` silent failure 5 both already cover it, and both proved themselves again.
       The tool exits 1 on a dead citation and always did; `$CODE` crossing the WSL boundary arrived
       empty, which made every exit-code reading untrustworthy
-- [ ] `spec:coverage` added to the recipe's `package.json`, and the `RECIPE.md` line explaining its
-      absence deleted — it was absent only because the tool did not exist
+- [x] `spec:coverage` wired into the recipe, and the `RECIPE.md` line explaining its absence
+      deleted → the recipe. *Nothing to promote:* the rule that a script name must point at
+      something real is already in `/scaffold`, and this is that rule being honoured rather than a
+      new lesson
 - [ ] Journey end-to-end coverage moved onto the `/sanity-check` backlog item, carrying what it
       needs: `*Surfaces: §n …*` resolved to `IS-` identifiers, then an end-to-end file citing all of
       them together
