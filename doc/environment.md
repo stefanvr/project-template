@@ -59,6 +59,18 @@ silently falls back to whatever the distribution installed. A build, test run or
 on the wrong runtime and merely behave differently. **Use the interactive flag.** Check with
 `wsl.exe -e bash -ic 'node -v'` before trusting any result that depends on the runtime.
 
+**Installing a version is not the same as selecting it.** nvm resolves a fresh interactive shell to
+its **default alias**, and `.nvmrc` is read only by an explicit `nvm use`. Install Node 24 while the
+default alias still points at 20 and every one-shot command keeps running on 20 — with the project's
+`.nvmrc` saying 24 and CI honouring it. Both succeed. They simply run different runtimes, and the
+divergence surfaces as a behaviour difference rather than an error.
+
+Two ways out, and they are not equivalent: run `nvm use` in the project directory before the command
+(reads `.nvmrc`, scoped to that shell), or move the default alias with `nvm alias default 24`. The
+second is **global** — every other project on the machine, including ones pinned to an older
+version, gets it too. Check with `node -v` and `nvm alias default`, never by recalling what was
+installed.
+
 **2. Committing from the Windows side attributes the commit to the wrong person.** The Windows host
 and WSL each carry their own global git identity, and on this machine they differ — one is a work
 identity, one is the personal identity this repository should use. Git does not warn; the commit

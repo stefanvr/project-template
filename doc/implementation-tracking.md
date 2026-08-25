@@ -84,6 +84,11 @@ recipe two, promoted from a real project rather than pre-built.
 - [x] **Ad hoc:** *suspect the scratch script before the system* → `workflow.md` step 5. A
       verification script here reported a deploy mismatch that did not exist, because it searched
       for a string the bundle only assembles at runtime
+- [x] **Ad hoc:** installing a Node version is not the same as selecting it → `environment.md`,
+      silent failure 1. Node 24 was installed but nvm's default alias still resolved to 20, so a
+      fresh interactive shell ran 20 against an `.nvmrc` saying 24, with CI honouring 24. Both
+      succeed and merely run different runtimes. Found by checking `node -v` rather than trusting
+      that an install had taken effect — the direct consequence of this goal's own `.nvmrc` bump
 - [x] **Promoted earlier from the same goal:** `environment.md` silent failure 5 — a variable
       crossing the WSL boundary arriving empty, turning `cp -r $R/.` into `cp -r /.`
 
