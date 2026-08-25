@@ -41,9 +41,11 @@ recipe two, promoted from a real project rather than pre-built.
 
 - [x] `.dev-template` marker at the repository root → the file itself, plus a **Starting a project**
       section in `README.md`. The guard needed somewhere to send you, or refusing is just a wall
-- [ ] `doc/tech-spec.md` and `doc/environment.md` in v2 shape — **pulled out of the
-      supporting-documents goal**, because `/scaffold` cannot write into documents that have no
-      shape yet. That goal keeps `style-guide` and `design-guide`
+- [x] `doc/tech-spec.md` and `doc/environment.md` in v2 shape → both documents, and the
+      supporting-documents backlog item narrowed to what is left of it. `environment.md` discharges
+      the SSH-and-WSL forward obligation, and gained a fourth silent failure found while writing it:
+      heredocs and apostrophes nested inside a shell command string break with an error pointing
+      somewhere unrelated
 - [ ] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, and the guard
 - [ ] `recipes/vite-ts/` — the files themselves, plus `RECIPE.md` saying what it assumes and what it
       deliberately leaves out
@@ -132,14 +134,10 @@ Planning, not before.
         does not fit*; nothing enforces it yet.
       - **And one from the journeys goal:** the backbone diagram and the journey steps must agree in
         both directions.
-- [ ] **The supporting documents exist in v2 shape.** `tech-spec`, `environment`, `style-guide`,
-      `design-guide` — each reduced to its Owns/Not here header plus what a real project fills in.
-      - **Carries a forward obligation:** `environment.md` must record that the GitHub remote is
-        reached over **SSH**, not the HTTPS URL — HTTPS is not configured here, and it prompts for
-        credentials no helper supplies, so it hangs rather than failing. And that git runs *inside
-        WSL*, because the Windows host carries a different identity and will attribute commits to
-        the wrong person without warning. Both are silent failures, which is the class of problem
-        `environment.md` exists for.
+- [ ] **The remaining supporting documents exist in v2 shape.** `style-guide` and `design-guide`,
+      each reduced to its Owns/Not here header plus what a real project fills in. `tech-spec` and
+      `environment` moved into the scaffold goal, which writes into them — and the SSH-and-WSL
+      forward obligation was discharged there.
 - [ ] **The template is proven against a real project.** Rebuild Garden's documents in v2 shape and
       see what the format cannot express. This is the goal that finds the design errors, and it is
       the only real test of the *not everything fits a command and an event* worry.
