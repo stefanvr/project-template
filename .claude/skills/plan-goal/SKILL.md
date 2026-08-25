@@ -46,6 +46,12 @@ and unparking is cheaper than planning from scratch.
 Write each into the **Planning** section as you go, so the record exists before the conversation
 is over rather than being reconstructed after it.
 
+**Scale the movements to the goal.** A correction, or a defect found between goals, often arrives
+already decided. Then movements 1 and 2 are a sentence each — *"no open questions, both defects were
+found and decided in the same message"* — and the whole thing is one message. Do not manufacture a
+discussion to fill the shape; a gate costing more than the work it guards is one that gets skipped
+later, when it matters.
+
 ### 1. Discussion
 
 What this is really for, what it depends on, what it unlocks. Name what already exists that this

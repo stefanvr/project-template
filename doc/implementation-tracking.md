@@ -43,8 +43,11 @@ corner cut — see the third item.
 - [x] The sequence is stated **once**, in `.dev-template` → `README.md` and `/scaffold` now point at
       it instead of restating it. It was written in three places, which is three places to forget a
       step — and the omission of `README.md` had already happened in all three
-- [ ] The gate is proportional: a goal with no open questions is planned in one message →
-      `workflow.md` and `/plan-goal`
+- [x] The gate is proportional → `workflow.md` and `/plan-goal`. **Found by this goal existing at
+      all:** the two defects turned up with **Now** empty, and `§Work found mid-goal` only covers
+      work found *during* a goal, so there was no route for a small correction between goals. The
+      answer is that it is still a goal — the movements collapse when there is nothing to ask, but
+      the outcome, the **Try it** and the promotion do not
 
 ---
 
