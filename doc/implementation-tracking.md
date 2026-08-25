@@ -19,45 +19,8 @@ test is mechanical: delete the text, and see whether anything is now missing.
 ---
 
 ## Now
-### Goal: a rule with no test, and a test citing a rule that no longer exists, are both findable by running a command
 
-**Outcome:** the identifier scheme in both specifications stops being a convention nobody checks —
-one command reports what is implemented, what is verified, and what cites a rule that has been
-retired.
-
-**Try it:** `node tools/spec-coverage.mjs` in this repository reports the template's own stub
-identifiers and exits 0, with none of the fourteen blockquoted example identifiers appearing in the
-report. `node --test tools/` passes, including a fixture where a test cites a retired `DS-9.9` and
-the tool exits 1.
-
-**Covers:** none — toolchain, not product behaviour.
-
-**Signed off** 2026-08-25. Input given at the gate: report **implementation and test coverage
-separately**, so a rule shows as implemented, tested, both, or neither. *Implemented but untested* is
-the gap most worth seeing, and letting a module citation count as coverage would hide exactly that.
-
-- [x] `tools/spec-coverage.mjs`, with the implementation scan and the configuration → the tool
-      itself. **One commit for three checklist items:** they are three behaviours of one file that
-      could not land separately, which is the checklist-overlap rule failing again — now sharpened
-      in `plan-goal` from *different files* to *can these be committed separately*
-      - Verified against this repository: 3 declared stubs found, all 14 blockquoted example
-        identifiers correctly excluded, exit 0. Against the fixtures: exit 1 on a dead citation
-      - `tools/fixtures/package.json` is what actually exercises the configuration path. Without it
-        the fixtures fell back to defaults and found nothing, and the path was silently untested
-- [x] `tools/spec-coverage.test.mjs` — 7 tests under `node --test`. **The invocation is
-      `node --test "tools/**/*.test.mjs"`, not `node --test tools/`:** a bare directory is treated
-      as a module to run and fails outright. The **Try it** line said the latter and was wrong
-- [x] **Ad hoc:** two false negatives came from the measuring harness rather than the tool →
-      nothing new to promote, because `workflow.md`'s *suspect the scratch script before the system*
-      and `environment.md` silent failure 5 both already cover it, and both proved themselves again.
-      The tool exits 1 on a dead citation and always did; `$CODE` crossing the WSL boundary arrived
-      empty, which made every exit-code reading untrustworthy
-- [x] `spec:coverage` wired into the recipe, and the `RECIPE.md` line explaining its absence
-      deleted → the recipe. *Nothing to promote:* the rule that a script name must point at
-      something real is already in `/scaffold`, and this is that rule being honoured rather than a
-      new lesson
-- [x] Journey end-to-end coverage moved onto the `/sanity-check` backlog item → **Backlog**, with
-      what it needs written out so the goal is plannable by someone who was not in this conversation
+*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
 
 ---
 
@@ -165,3 +128,4 @@ carries identifiers — until then, deliberately empty rather than guessed at.
 | The journeys through a product can be written down, and sliced into goals | 2026-08-25 | `implementation-spec.md` (strict journey/surface split, `IS-n.n` on surfaces only with journeys naming the surfaces they cross, mermaid backbone, *Future — how this might work*) · `.claude/skills/story-map` (propose-then-walk rather than interview, slices never layers, surfaces written per goal not up front) |
 | A new project reaches a working, tested skeleton without re-solving the toolchain | 2026-08-25 | `.claude/skills/scaffold` (the `.dev-template` guard, the interview, install-before-commit, guided-and-verified remote and Pages, deploy-on-day-one) · `recipes/vite-ts` with `RECIPE.md` (Node 24 LTS, why no lockfile ships, `configure-pages` rejected in place with its evidence) · `doc/tech-spec.md` and `doc/environment.md` in v2 shape, the latter carrying silent failures 1–5 · `doc/workflow.md` (suspect the scratch script before the system) · `.claude/skills/plan-goal` (checklists that count one artifact twice; empty **Covers** on a toolchain goal) · `README.md` (Starting a project) |
 | The loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow | 2026-08-25 | `workflow.md` (spec input asked at the planning gate · git performed on instruction, never on the skill's own judgement · promotion refused rather than prompted · WIP overrides recorded · `main` as integration branch, long-running branches rejected with reasons · §Work found mid-goal · landing needs its own branch) · `.claude/skills/plan-goal` and `.claude/skills/build-stage` (the loop itself; refusals that name the next command; in-progress distinguished from done-but-not-landed) · **Backlog** (SSH-not-HTTPS and git-inside-WSL, as a forward obligation on the `environment.md` goal) |
+| A rule with no test, and a test citing a rule that no longer exists, are both findable by running a command | 2026-08-25 | `tools/spec-coverage.mjs` with its fixtures and tests (runner-agnostic, reading identifiers out of test names; implementation and test coverage reported **separately** so *implemented but untested* stays visible; blockquoted example identifiers skipped; non-zero exit on dead citations only; optional `specCoverage` config with real defaults) · `recipes/vite-ts` (`spec:coverage` wired in, the absence note deleted) · `.claude/skills/plan-goal` (checklist overlap sharpened to *can these be committed separately*) · **Backlog** (journey end-to-end coverage moved to `/sanity-check` with what it needs) |
