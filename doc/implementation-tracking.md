@@ -25,7 +25,63 @@ test is mechanical: delete the text, and see whether anything is now missing.
 ---
 
 ## Planning
-*Empty. Goals are planned one at a time, when they are about to be built.*
+### Goal: the document set is complete, and nothing has fallen between tech-spec and design-guide
+
+**Discussion.** This started as *"write the two missing documents"* and is bigger than that. Three
+things fell through, not one.
+
+`design-guide.md` and `style-guide.md` are referenced **18 times across 13 files** — including
+`README.md`'s document table, `CLAUDE.md`'s decision routing, `build-stage`'s promotion table and a
+module comment in the recipe's own test — and neither file exists. Every one of those links is dead,
+and has been for six goals.
+
+Worse, v2's `tech-spec.md` pushed **Architecture** out to `design-guide` and then dropped two more
+sections v1 had: **Testing strategy**, and **Resolving what domain-spec left open**. That last one
+is genuinely valuable and entirely absent — it is where a technical decision records that the domain
+specification deliberately left a gap, which otherwise gets settled implicitly by the first module
+that needs it and copied by every module after.
+
+**The boundary, worked out from a real project rather than invented.** Garden's `tech-spec`
+Architecture section mixes two kinds of rule that v2 should separate:
+
+| Kind | Example from Garden | Home in v2 |
+|---|---|---|
+| Universal shape | *the domain layer never imports Firebase; persistence is reached through a repository interface* | `design-guide.md` |
+| This project's rule | *months are integers 1–12 internally, with exactly one mapping table* | `tech-spec.md` |
+
+So `design-guide` holds what would still be true on a completely different project, and `tech-spec`
+holds this project's application of it. The same test the whole document set already uses.
+
+**Settled by reading rather than asking:**
+
+- `design-guide` ships **filled in**, like `workflow.md`, not as a stub like the two specifications.
+  Its content is a standing preference, not a per-project decision — and `style-guide` shipping as a
+  template confirms the contrast.
+- It must specify the **citation format** for module headers. `tools/spec-coverage.mjs` reads
+  `[DS-n.n]` in brackets out of source files, and nothing currently tells an author to write it that
+  way — the tool has a dependency no document states.
+- Testing splits across both: *which layer carries the bulk of coverage* is a technical choice
+  (`tech-spec`), while *tests mirror the source layout and are named as the behaviour claimed* is a
+  code convention (`design-guide`).
+- v1's `code-conventions.md` content all belongs here, reframed: module-cites-its-rule, comments
+  explaining why-not-the-obvious, seeded randomness with deterministic tie-breaks, dev-only
+  affordances built and gated, and scratch work leaving no trace.
+
+**Open questions** — the repository cannot answer these:
+
+- **How hard should `design-guide` push CQRS and ports-and-adapters?** They are your standing
+  preferences and they earned their place in both real projects. But this template will also be used
+  for something small, where a repository interface over one JSON file is ceremony. Mandate them, or
+  state them as the default with the conditions under which not doing it is correct?
+- **How thin is "merely a template" for `style-guide`?** v1's was 98 lines of token tables,
+  component states and fog-of-war examples. Keep that scaffolding for a project to fill in, or strip
+  it to a header and a couple of prompts?
+
+**Proposal.** *Not written yet — waiting on the questions above.*
+
+**Sign-off:** ☐
+
+---
 
 <details>
 <summary>The loop goal, as it was planned — kept once, as the worked example of this section</summary>
