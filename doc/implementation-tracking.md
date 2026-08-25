@@ -60,7 +60,9 @@ the file they land in: the coverage script ships as `tools/spec-coverage.mjs` in
   and an unregistered default bucket — that were invisible to every local test. It also makes this
   goal much larger, and needs cloud accounts to exist.
 
-**Answers given at the gate.** One recipe to start — Vite + TypeScript + Vitest + Playwright — with
+**Answers given at the gate.** The first recipe deploys to **GitHub Pages**: it makes the Try it
+runnable today with no account to provision and no billing, and the Firebase shape arrives as recipe
+two, promoted from a real project rather than pre-built. One recipe to start — Vite + TypeScript + Vitest + Playwright — with
 the second promoted from whatever the next real project proves. `/scaffold` runs local git and then
 guides and *verifies* the remote, rather than depending on `gh`, which is installed on neither side
 of this machine. The skeleton deploys on day one: the recipe ships the pipeline, and the console
@@ -75,8 +77,8 @@ steps it cannot automate are guided and written into `environment.md` as they ar
 - [ ] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, and the guard
 - [ ] `recipes/vite-ts/` — the files themselves, plus `RECIPE.md` saying what it assumes and what it
       deliberately leaves out
-- [ ] Deploy pipeline in the recipe: CI runs the tests, then deploys, with a build identifier
-      injected so a deploy can be *confirmed* rather than assumed
+- [ ] Deploy pipeline in the recipe: CI runs the tests, then deploys to **GitHub Pages**, with a
+      build identifier injected so a deploy can be *confirmed* rather than assumed
 - [ ] Git in the skill: `init`, `.gitignore`, first commit, then the guided remote with a
       `git ls-remote` check that it actually worked
 - [ ] `environment.md` written *as the console steps are done*, not afterwards — this is the fix for
@@ -189,11 +191,6 @@ Real, decided against for now, with what would unpark it.
       two real projects has asked. Nothing in the current document set is worse for its absence.
       Unpark it when a project has an actual make-versus-buy or evolution question to settle, at
       which point it is a `doc/discovery/` artifact rather than a maintained document.
-- [ ] **Generating the Done table from git history.** The rows are cheap to write by hand and the
-      information is not identical — Done records *which document received the knowledge*, which
-      no tag knows. Unpark it if Done ever grows past the point of being read.
-
----
 
 ## Release gap
 
