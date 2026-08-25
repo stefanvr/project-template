@@ -26,7 +26,48 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Planning
 
-*Empty. Goals are planned one at a time, when they are about to be built.*
+### Goal: a rule with no test, and a test citing a rule that no longer exists, are both findable by running a command
+
+**Discussion.** This is the goal that turns the specification-to-test binding from an intention into
+something mechanical. Three things already depend on it: `CLAUDE.md` tells every session that
+`npm run spec:coverage` exists, the identifier scheme in both specifications is inert without
+something that reads it, and three forward obligations are parked on this item — ceremonial
+stickies, backbone-versus-journey drift, and journeys with no end-to-end coverage.
+
+The DRY check comes back clean: the identifier conventions are already decided elsewhere (`DS-` on
+any block type, `IS-` on surfaces only, journeys naming the surfaces they cross). This goal *reads*
+those conventions, it does not restate them.
+
+One design point settled by reading rather than asking: the tool must be **runner-agnostic**, so it
+reads identifiers out of test *names* rather than parsing any runner's output. Q&C uses
+`node:test`, Garden uses Vitest, both use Playwright; parsing output would bind the template to one
+of them and break on the next project.
+
+**What the repository actually contains**, checked rather than assumed: no `package.json`, no
+`tools/`, no `src/`, no `test/`, and zero test files. Node 20 is available. The eight `DS-` and
+seven `IS-` identifiers that exist sit almost entirely inside the delete-me illustrative blocks.
+
+That last paragraph is the problem, and it is what the **Try it** discipline is for. This goal can
+be built and unit-tested against fixtures, but its Try it can only honestly read *"it reports
+correctly against a fixture"* — never *"it found a real gap"*, because there is no real corpus here
+to find one in.
+
+**Open questions** — asked because the repository cannot answer them:
+
+- **Sequencing.** Does this come before `/scaffold`, or after? Building `/scaffold` first means the
+  first real project carries the coverage check from day one and this goal's Try it becomes real.
+  Building this first means the tooling exists to be scaffolded *in*.
+- **Shipping.** Does the tool ship as a file in the template that every project inherits, or does
+  `/scaffold` write it? It is process tooling and identical for every project, which argues for a
+  template file — but that cuts against the decision that scaffolding is a skill with recipes.
+- **Scope.** One goal or two? The mechanical script and the judgement-based `/sanity-check` audit
+  fail differently and are reached for at different moments, which is the SRP argument for
+  splitting them.
+
+**Proposal.** *Not written yet — waiting on the questions above.*
+
+**Sign-off:** ☐
+
 
 <details>
 <summary>The loop goal, as it was planned — kept once, as the worked example of this section</summary>
