@@ -78,6 +78,23 @@ appear in **Now**.
 Goals, not tasks. Each is one line stating an outcome; it gets its checklist when it reaches
 Planning, not before.
 
+- [ ] **The template is proven by starting a real project with it.** Trazer — a Traz/Arkanoid-type
+      game — in a fresh repository copied from this template, taken to one playable slice using
+      `/scaffold`, `/discover`, `/event-storm`, `/story-map`, `/plan-goal` and `/build-stage`. Every
+      format failure found is recorded back here.
+      - **Why Trazer rather than the alternatives:** it is the adversarial case. An arcade game is
+        simulation — physics, collision, per-frame state — with barely any domain events, which is
+        precisely the shape event storming fits worst. If `domain-spec.md`'s *When it does not fit*
+        fallbacks hold there, they hold anywhere. It is also small, and existing input for it can be
+        frozen as the first `/discover` artifact rather than manufacturing one.
+      - **What it exercises that nothing has.** Four of the seven skills have never run: `/discover`,
+        `/event-storm`, `/story-map` and `/scaffold`. Only `/plan-goal` and `/build-stage` have been
+        used for real, and `/scaffold`'s recipe was verified by hand-copying rather than by running
+        the skill. A conversion would test the document formats; only a greenfield start tests the
+        skills, which are the less proven half.
+      - **A conversion is not a greenfield start**, and the earlier wording of this item confused
+        them. Re-deriving Garden from its own domain-spec is a greenfield start with unusually good
+        input, not a rebuild — see **Parked**.
 - [ ] **The documents can be audited against the code in one pass.** `/sanity-check`, which runs the
       coverage script and adds the judgement calls it cannot make.
       - **Carries a forward obligation from the domain-spec goal:** it must report **ceremonial
@@ -86,21 +103,36 @@ Planning, not before.
         symptoms of event storming being forced onto something that is not a workflow, which is the
         failure mode most likely to bite. Defined in [domain-spec.md](domain-spec.md)'s *When it
         does not fit*; nothing enforces it yet.
+      - **Deliberately after the Trazer test:** run against this repository today it would report
+        three uncovered stubs and stop. Its three obligations all need real specifications, real
+        modules citing them and a real end-to-end suite — none of which exist here.
       - **And two from the journeys goal:** the backbone diagram and the journey steps must agree
         in both directions; and a journey whose named surfaces are never exercised together by any
         end-to-end test must be reported. The second is the only coverage a journey has, since
         journeys deliberately carry no identifiers — it needs `*Surfaces: §n …*` resolved to `IS-`
         identifiers, then an end-to-end file citing all of them together. Moved here from the
         coverage goal, which kept itself to the mechanical check.
-- [ ] **The template is proven against a real project.** Rebuild Garden's documents in v2 shape and
-      see what the format cannot express. This is the goal that finds the design errors, and it is
-      the only real test of the *not everything fits a command and an event* worry.
 
 ---
 
 ## Parked
 
 Real, decided against for now, with what would unpark it.
+
+- [ ] **Converting the existing projects to v2.** Worth doing in the longer run, not now, and not
+      uniformly:
+      - **`web-garden`** is the strongest candidate and the one that delivers real value. Its current
+        `domain-spec.md` is, by its own author's account, the research that should have produced a
+        domain spec — so it is already a `/discover` artifact. Freeze it and re-derive rather than
+        converting section by section. Unpark once Trazer has proven the template, so the value
+        project is not the one finding the format's errors.
+      - **`risky.turn`** shares most of its domain with Q&C, so it inherits those lessons directly.
+        A good project; a weak *test*, because a domain already in your head makes the `/event-storm`
+        interview a recitation rather than a discovery.
+      - **`query-and-conquer` is superseded, not converted.** Its AI approach needs a complete
+        overhaul, and the lessons are better spent starting `risky.turn` than retrofitting v1.
+      - **`gym` is out of scope.** It predates Q&C's `build-v1` and had template v1 applied; nothing
+        is gained by dragging it forward.
 
 - [ ] **Wardley mapping as a template artifact.** Named as an inspiration but no wish attached to
       it, and it answers a question — *where is this heading strategically* — that neither of the
