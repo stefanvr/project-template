@@ -77,7 +77,35 @@ holds this project's application of it. The same test the whole document set alr
   component states and fog-of-war examples. Keep that scaffolding for a project to fill in, or strip
   it to a header and a couple of prompts?
 
-**Proposal.** *Not written yet — waiting on the questions above.*
+**Answers given at the gate.** `design-guide` states CQRS and ports-and-adapters as the **default
+with exit conditions** — each rule says plainly when not doing it is correct, because an
+unconditional rule meeting a small project gets quietly ignored and takes the document's
+credibility with it. `style-guide` **keeps v1's scaffolding** — token tables, component states,
+the easy-to-forget states — as empty structure to fill in, since that checklist of what to decide
+was where most of its value was.
+
+**Proposal.**
+
+- [ ] `doc/design-guide.md` — the universal shape rules, shipped filled in rather than as a stub:
+      SRP, ports and adapters via factory, DRY at the business level, the command/query split, and
+      v1's conventions reframed (comments explaining why-not-the-obvious, seeded randomness with
+      deterministic tie-breaks, dev affordances built and gated, scratch work leaving no trace).
+      Each architectural rule carries its **when not to**. Includes the module-header **citation
+      format**, which `tools/spec-coverage.mjs` already depends on and no document states
+- [ ] `doc/style-guide.md` — v1's structure as empty scaffolding, plus the note that it is written
+      when there is a first thing to look at, not before
+- [ ] `doc/tech-spec.md` — restore what v2 dropped: **Architecture** for this project's own rules
+      (distinct from design-guide's universal ones), the per-decision **Decisions** structure with
+      chosen/why/rejected/accepted-risk, **Resolving what domain-spec left open**, and **Testing
+      strategy**
+- [ ] Every cross-reference in the document set resolves, checked rather than assumed, and the
+      check left behind so it can be re-run
+
+**Try it:** follow every markdown link in `README.md`, `CLAUDE.md` and `doc/*.md` — all resolve.
+Open `doc/design-guide.md` and find, stated as a rule, the bracketed-identifier module header that
+`tools/spec-coverage.mjs` reads. `node tools/spec-coverage.mjs` still exits 0.
+
+**Covers:** none — process documents, not product behaviour.
 
 **Sign-off:** ☐
 
