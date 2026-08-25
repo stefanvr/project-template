@@ -127,6 +127,12 @@ simulation over many iterations, a screenshot, a direct check of a computed valu
 catches what careful thinking misses: off-by-one errors in hand-worked coordinates, a rule that
 never fires, a fixture that is not what you meant. Delete it in the same session.
 
+**And when the scratch script reports a failure, suspect the script first.** One here reported a
+deploy mismatch that did not exist: it looked for an identifier in its formatted form, which is
+assembled at runtime, while the bundle stores the two halves separately. Reading the actual bytes
+settled it in seconds. A verification tool is code too — written quickly, without tests of its own,
+by someone who already believes they know the answer.
+
 Two traps, both of which have cost real time:
 
 - **Do not write scratch output where the dev server watches it.** A live-reloading server reloads

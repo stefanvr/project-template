@@ -20,7 +20,77 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
+### Goal: a new project reaches a working, tested skeleton without re-solving the toolchain
+
+**Outcome:** copying this template and running `/scaffold` produces a project that builds, tests and
+deploys, with its `tech-spec.md` and `environment.md` written as the setup happens rather than
+reconstructed afterwards.
+
+**Try it:** copy the template to a throwaway sibling directory, run `/scaffold`, answer the
+interview. Afterwards `npm test` and `npm run test:e2e` pass, `git log` shows the scaffold commit,
+and once pushed the live URL shows a build identifier matching `main`. Then delete the directory and
+confirm this repository is untouched.
+
+**Covers:** none. This goal is toolchain, not product behaviour, so it implements no `DS-` or `IS-`
+identifier. The **Covers** field not fitting a meta-goal is a small format finding, to be promoted
+if it recurs.
+
+**Signed off** 2026-08-25. Input given at the gate: the first recipe deploys to **GitHub Pages** —
+runnable today with no account to provision and no billing, with the Firebase shape arriving as
+recipe two, promoted from a real project rather than pre-built.
+
+- [x] `.dev-template` marker at the repository root → the file itself, plus a **Starting a project**
+      section in `README.md`. The guard needed somewhere to send you, or refusing is just a wall
+- [x] `doc/tech-spec.md` and `doc/environment.md` in v2 shape → both documents, and the
+      supporting-documents backlog item narrowed to what is left of it. `environment.md` discharges
+      the SSH-and-WSL forward obligation, and gained a fourth silent failure found while writing it:
+      heredocs and apostrophes nested inside a shell command string break with an error pointing
+      somewhere unrelated
+- [x] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, the guard, git with
+      a verified remote, and deploy-on-day-one. *Nothing new to promote:* every rule in it was
+      already settled in `workflow.md` or `environment.md`, which is what a skill carrying
+      procedure rather than rationale should look like
+- [x] `recipes/vite-ts/` with `RECIPE.md` → the recipe carries its own reasoning, which is what a
+      recipe is for. Verified by scaffolding it: install clean, `typecheck` clean, 3 unit tests and
+      6 end-to-end tests passing at both viewports. The vitest/vite config split is deliberate and
+      load-bearing — unit tests must see the identifier *absent* so the `unknown` fallback is the
+      path under test rather than dead code
+- [x] Deploy pipeline: typecheck, unit and end-to-end tests all run **before** anything publishes,
+      so a red build cannot reach the live site. Verified locally that the Pages subpath build is
+      right — assets resolve under `/{repo}/`, which is the failure that 404s every script on a
+      site that otherwise looks fine — and that the identifier is injected into the bundle
+- [x] Git: `init`, the recipe's `.gitignore`, first commit, then the guided-and-verified remote →
+      the skill half landed with item 3, the `.gitignore` with the recipe
+- [x] `environment.md` written *as the console steps are done* → the rule landed inside
+      `/scaffold` with item 3, rather than needing a change of its own. **Planning overlap worth
+      noting:** items 3, 6 and 7 all describe one artifact, so the checklist counted the skill
+      three times. Item 6 is genuinely still open, but only for the `.gitignore` the recipe
+      carries — its skill half is written
+- [x] Verified by scaffolding it for real → the recipe, `/scaffold`, `workflow.md`. Locally:
+      install, typecheck, 3 unit tests, 6 end-to-end tests at both viewports, the Pages subpath
+      build. Then on a real repository: CI green through `npm ci`, typecheck, unit tests and
+      end-to-end, and the live page reading `95af1e7` — matching `origin/main` exactly. The deploy
+      **confirmed rather than assumed**, which is the entire reason the identifier exists
+- [x] **Ad hoc:** three defects found by the first real CI runs, none of them visible to any local
+      test → the recipe and `/scaffold`. No committed lockfile, so `setup-node` failed on its
+      dependency cache before a single test ran; `checkout` and `setup-node` at v4 being forced onto
+      Node 24 by the runner; and `configure-pages`'s `enablement: true` failing with *Resource not
+      accessible by integration*, which reverted a change made an hour earlier that had been
+      reasoned about rather than observed. That reason is written **inside the workflow file**, so
+      the next person reading the action's documentation does not re-add it in good faith
+- [x] **Ad hoc:** `.nvmrc` moved off the end-of-life Node 20 to 24 LTS → the recipe and `RECIPE.md`,
+      which records that each machine needs `nvm install 24` first. Verified by the pipeline itself
+      rather than a manual retest, since CI installs from `.nvmrc`
+- [x] **Ad hoc:** *suspect the scratch script before the system* → `workflow.md` step 5. A
+      verification script here reported a deploy mismatch that did not exist, because it searched
+      for a string the bundle only assembles at runtime
+- [x] **Ad hoc:** installing a Node version is not the same as selecting it → `environment.md`,
+      silent failure 1. Node 24 was installed but nvm's default alias still resolved to 20, so a
+      fresh interactive shell ran 20 against an `.nvmrc` saying 24, with CI honouring 24. Both
+      succeed and merely run different runtimes. Found by checking `node -v` rather than trusting
+      that an install had taken effect — the direct consequence of this goal's own `.nvmrc` bump
+- [x] **Promoted earlier from the same goal:** `environment.md` silent failure 5 — a variable
+      crossing the WSL boundary arriving empty, turning `cp -r $R/.` into `cp -r /.`
 
 ---
 
@@ -80,28 +150,29 @@ Goals, not tasks. Each is one line stating an outcome; it gets its checklist whe
 Planning, not before.
 
 - [ ] **A rule with no test, and a test citing a rule that no longer exists, are both findable by
-      running a command.** `DS-`/`IS-` identifiers, `spec:coverage`, and `/sanity-check` on top.
-      - **Carries a forward obligation from the domain-spec goal:** `/sanity-check` must report
-        **ceremonial stickies** — an event nothing subscribes to, a command whose only actor is
-        "the system" with no policy triggering it, an event named noun-plus-*Updated*. These are
-        the three mechanical symptoms of event storming being forced onto something that is not a
-        workflow, which is the failure mode most likely to bite. Defined in
-        [domain-spec.md](domain-spec.md)'s *When it does not fit*; nothing enforces it yet.
-      - **And two from the journeys goal:** the backbone diagram and the journey steps must agree
-        in both directions, and a journey whose named surfaces are never exercised together by any
-        end-to-end test must be reported. The second is the only coverage a journey has, since
-        journeys deliberately carry no identifiers.
-- [ ] **A new project reaches a deployed, tested skeleton without re-solving the toolchain.**
-      `/scaffold` with recipes, writing `tech-spec.md` and `environment.md` as it goes. Recipes are
-      directories in the skill — a proven setup is promoted by adding one.
-- [ ] **The supporting documents exist in v2 shape.** `tech-spec`, `environment`, `style-guide`,
-      `design-guide` — each reduced to its Owns/Not here header plus what a real project fills in.
-      - **Carries a forward obligation:** `environment.md` must record that the GitHub remote is
-        reached over **SSH**, not the HTTPS URL — HTTPS is not configured here, and it prompts for
-        credentials no helper supplies, so it hangs rather than failing. And that git runs *inside
-        WSL*, because the Windows host carries a different identity and will attribute commits to
-        the wrong person without warning. Both are silent failures, which is the class of problem
-        `environment.md` exists for.
+      running a command.** `tools/spec-coverage.mjs`, reading `DS-`/`IS-` identifiers.
+      - **Settled at its planning gate, before it was deferred:** the tool is **runner-agnostic** —
+        it reads identifiers out of test *names* and never parses a runner's output, because Q&C
+        uses `node:test`, Garden uses Vitest, and both use Playwright. It **ships as a file in the
+        template**, with `/scaffold` adding only the npm script and the per-project paths, since
+        the logic is identical everywhere and only the paths are not.
+      - **Carries a forward obligation from the journeys goal:** a journey whose named surfaces are
+        never exercised together by any end-to-end test must be reported. That is the only coverage
+        a journey has, since journeys deliberately carry no identifiers.
+- [ ] **The documents can be audited against the code in one pass.** `/sanity-check`, which runs the
+      coverage script and adds the judgement calls it cannot make.
+      - **Carries a forward obligation from the domain-spec goal:** it must report **ceremonial
+        stickies** — an event nothing subscribes to, a command whose only actor is "the system" with
+        no policy triggering it, an event named noun-plus-*Updated*. These are the three mechanical
+        symptoms of event storming being forced onto something that is not a workflow, which is the
+        failure mode most likely to bite. Defined in [domain-spec.md](domain-spec.md)'s *When it
+        does not fit*; nothing enforces it yet.
+      - **And one from the journeys goal:** the backbone diagram and the journey steps must agree in
+        both directions.
+- [ ] **The remaining supporting documents exist in v2 shape.** `style-guide` and `design-guide`,
+      each reduced to its Owns/Not here header plus what a real project fills in. `tech-spec` and
+      `environment` moved into the scaffold goal, which writes into them — and the SSH-and-WSL
+      forward obligation was discharged there.
 - [ ] **The template is proven against a real project.** Rebuild Garden's documents in v2 shape and
       see what the format cannot express. This is the goal that finds the design errors, and it is
       the only real test of the *not everything fits a command and an event* worry.
@@ -117,11 +188,6 @@ Real, decided against for now, with what would unpark it.
       two real projects has asked. Nothing in the current document set is worse for its absence.
       Unpark it when a project has an actual make-versus-buy or evolution question to settle, at
       which point it is a `doc/discovery/` artifact rather than a maintained document.
-- [ ] **Generating the Done table from git history.** The rows are cheap to write by hand and the
-      information is not identical — Done records *which document received the knowledge*, which
-      no tag knows. Unpark it if Done ever grows past the point of being read.
-
----
 
 ## Release gap
 

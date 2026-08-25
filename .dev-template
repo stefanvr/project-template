@@ -1,0 +1,15 @@
+This file marks the repository as the development template itself, rather than a project made
+from it.
+
+`/scaffold` refuses to run in a directory containing this file. To start a project:
+
+  1. Copy this repository to a new directory — copy, do not clone. A new project does not want
+     this repository's history, and `doc/implementation-tracking.md` here records the template's
+     own build rather than the project's.
+  2. Delete this file.
+  3. Clear `doc/implementation-tracking.md` down to its rules, and delete the illustrative blocks
+     in `doc/domain-spec.md` and `doc/implementation-spec.md`.
+  4. Run `/scaffold`.
+
+The guard exists because scaffolding in place would turn the template into an application, and
+that is a mistake worth making impossible rather than merely discouraging.

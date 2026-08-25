@@ -24,6 +24,15 @@ v2 fixes the second by giving reasoning a home with a lifecycle — discovery ar
 inputs, and a promotion rule that moves what was learned into the document that owns it before a
 task is ticked off.
 
+## Starting a project
+
+**Copy** this repository to a new directory — copy, do not clone; a new project does not want the
+template's own history. Delete `.dev-template`, clear `doc/implementation-tracking.md` down to its
+rules, delete the illustrative blocks in the two specifications, then run `/scaffold`.
+
+`/scaffold` refuses to run beside `.dev-template`, so scaffolding the template in place — which
+would turn it into an application — is impossible rather than merely discouraged.
+
 ## The documents
 
 | Doc | Owns | Shape |
