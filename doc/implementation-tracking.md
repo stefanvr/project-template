@@ -51,8 +51,13 @@ than writing a half-stated rule into a document whose whole value is that its ru
       design-guide holds what would be true on any project, tech-spec holds this project's
       application of it and its own rules besides. Architecture, the per-decision structure,
       *Resolving what domain-spec left open* and *Testing strategy* are all back
-- [ ] Every cross-reference in the document set resolves, checked rather than assumed, and the
-      check left behind so it can be re-run
+- [x] Every cross-reference resolves → `tools/check-links.mjs`, left behind so `/sanity-check` can
+      call it rather than re-deriving it. It found two more dead links on its first run that nobody
+      had noticed
+- [x] **Ad hoc:** `doc/discovery/` created with its conventions → `doc/discovery/README.md`: the
+      freeze rule, the dated naming, and evidence-per-finding. It was referenced by `README.md` and
+      `domain-spec.md` and did not exist. Found by the checker immediately, which is the whole
+      argument for writing the check rather than eyeballing the links
 
 ---
 
