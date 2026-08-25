@@ -20,34 +20,7 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-### Goal: a project copied from the template starts clean, and the copy sequence is stated once
-
-**Outcome:** following the copy sequence leaves nothing of the template's own behind, and the
-sequence exists in one place rather than three that can drift apart.
-
-**Try it:** copy the template to a scratch directory, follow `.dev-template`, then grep the result
-for the word *template* — nothing describing the dev template itself remains. Delete the scratch
-directory afterwards.
-
-**Covers:** none — process documents.
-
-**Signed off** 2026-08-25, with **movements 1 and 2 collapsed**: there were no open questions, both
-defects were found and decided in the same message. That collapsing is now a rule rather than a
-corner cut — see the third item.
-
-- [x] `.dev-template` now names `README.md` — every project would otherwise inherit one describing
-      the template — and settles `tools/`: **keep it in full**, tests and fixtures included, because
-      the tools ship into every project as code, and code that ships untested is what
-      `design-guide.md` argues against. It also says what *not* to delete: `environment.md`'s silent
-      failures are about the machine and stay true everywhere
-- [x] The sequence is stated **once**, in `.dev-template` → `README.md` and `/scaffold` now point at
-      it instead of restating it. It was written in three places, which is three places to forget a
-      step — and the omission of `README.md` had already happened in all three
-- [x] The gate is proportional → `workflow.md` and `/plan-goal`. **Found by this goal existing at
-      all:** the two defects turned up with **Now** empty, and `§Work found mid-goal` only covers
-      work found *during* a goal, so there was no route for a small correction between goals. The
-      answer is that it is still a goal — the movements collapse when there is nothing to ask, but
-      the outcome, the **Try it** and the promotion do not
+*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
 
 ---
 
@@ -185,3 +158,4 @@ carries identifiers — until then, deliberately empty rather than guessed at.
 | The loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow | 2026-08-25 | `workflow.md` (spec input asked at the planning gate · git performed on instruction, never on the skill's own judgement · promotion refused rather than prompted · WIP overrides recorded · `main` as integration branch, long-running branches rejected with reasons · §Work found mid-goal · landing needs its own branch) · `.claude/skills/plan-goal` and `.claude/skills/build-stage` (the loop itself; refusals that name the next command; in-progress distinguished from done-but-not-landed) · **Backlog** (SSH-not-HTTPS and git-inside-WSL, as a forward obligation on the `environment.md` goal) |
 | A rule with no test, and a test citing a rule that no longer exists, are both findable by running a command | 2026-08-25 | `tools/spec-coverage.mjs` with its fixtures and tests (runner-agnostic, reading identifiers out of test names; implementation and test coverage reported **separately** so *implemented but untested* stays visible; blockquoted example identifiers skipped; non-zero exit on dead citations only; optional `specCoverage` config with real defaults) · `recipes/vite-ts` (`spec:coverage` wired in, the absence note deleted) · `.claude/skills/plan-goal` (checklist overlap sharpened to *can these be committed separately*) · **Backlog** (journey end-to-end coverage moved to `/sanity-check` with what it needs) |
 | The document set is complete, and nothing has fallen between tech-spec and design-guide | 2026-08-25 | `doc/design-guide.md` (universal shape rules, each carrying its *when not to*; the bracketed module-header citation format `spec-coverage` depends on) · `doc/style-guide.md` (v1's scaffolding, empty, deleted by a project with no visual surface) · `doc/tech-spec.md` (**Architecture** for this project's own rules, the per-decision structure, *Resolving what domain-spec left open*, **Testing strategy**, and the design-guide boundary stated in both headers) · `doc/discovery/README.md` (freeze rule, dated naming, evidence per finding) · `tools/check-links.mjs` |
+| A project copied from the template starts clean, and the copy sequence is stated once | 2026-08-25 | `.dev-template` — now the single source: `README.md` named in the sequence, `tools/` kept in full with its tests and fixtures, and what *not* to delete · `README.md` and `.claude/skills/scaffold` both point at it rather than restating a list that had already drifted in all three places at once · `doc/workflow.md` and `.claude/skills/plan-goal` (the planning gate is proportional — a goal with no open questions is planned in one message, but still gets its outcome, its **Try it** and its promotion) |
