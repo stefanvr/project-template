@@ -66,16 +66,26 @@ recipe two, promoted from a real project rather than pre-built.
       noting:** items 3, 6 and 7 all describe one artifact, so the checklist counted the skill
       three times. Item 6 is genuinely still open, but only for the `.gitignore` the recipe
       carries — its skill half is written
-- [ ] Verify by scaffolding a throwaway sibling directory end to end, then deleting it
-      - **Local legs done and passing:** scaffold, install, typecheck, 3 unit tests, 6 end-to-end
-        tests at both viewports, the Pages subpath build, and the identifier reaching the bundle.
-        Throwaway deleted; this repository confirmed untouched
-      - **Live leg outstanding:** *"once pushed the live URL shows a build identifier matching
-        `main`"* needs a real repository with Pages enabled. Until that runs, the workflow file is
-        reasoned about rather than observed — which is precisely the distinction `workflow.md`
-        warns about, so it is not being ticked
-      - **Promoted from the attempt:** `environment.md` silent failure 5 — a variable crossing the
-        WSL boundary arriving empty, and `cp -r $R/.` becoming `cp -r /.`
+- [x] Verified by scaffolding it for real → the recipe, `/scaffold`, `workflow.md`. Locally:
+      install, typecheck, 3 unit tests, 6 end-to-end tests at both viewports, the Pages subpath
+      build. Then on a real repository: CI green through `npm ci`, typecheck, unit tests and
+      end-to-end, and the live page reading `95af1e7` — matching `origin/main` exactly. The deploy
+      **confirmed rather than assumed**, which is the entire reason the identifier exists
+- [x] **Ad hoc:** three defects found by the first real CI runs, none of them visible to any local
+      test → the recipe and `/scaffold`. No committed lockfile, so `setup-node` failed on its
+      dependency cache before a single test ran; `checkout` and `setup-node` at v4 being forced onto
+      Node 24 by the runner; and `configure-pages`'s `enablement: true` failing with *Resource not
+      accessible by integration*, which reverted a change made an hour earlier that had been
+      reasoned about rather than observed. That reason is written **inside the workflow file**, so
+      the next person reading the action's documentation does not re-add it in good faith
+- [x] **Ad hoc:** `.nvmrc` moved off the end-of-life Node 20 to 24 LTS → the recipe and `RECIPE.md`,
+      which records that each machine needs `nvm install 24` first. Verified by the pipeline itself
+      rather than a manual retest, since CI installs from `.nvmrc`
+- [x] **Ad hoc:** *suspect the scratch script before the system* → `workflow.md` step 5. A
+      verification script here reported a deploy mismatch that did not exist, because it searched
+      for a string the bundle only assembles at runtime
+- [x] **Promoted earlier from the same goal:** `environment.md` silent failure 5 — a variable
+      crossing the WSL boundary arriving empty, turning `cp -r $R/.` into `cp -r /.`
 
 ---
 
