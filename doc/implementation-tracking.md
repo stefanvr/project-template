@@ -45,8 +45,8 @@ than writing a half-stated rule into a document whose whole value is that its ru
       bracketed `[DS-n.n]` — is now stated as a rule, and `tools/spec-coverage.mjs` had been
       depending on it with no document saying so, which meant a carefully written comment could
       read as unimplemented
-- [ ] `doc/style-guide.md` — v1's structure as empty scaffolding, plus the note that it is written
-      when there is a first thing to look at, not before
+- [x] `doc/style-guide.md` → the document itself, v1's structure as empty scaffolding. *Nothing to
+      promote:* it is a checklist of what to decide, and every decision in it is per-project
 - [ ] `doc/tech-spec.md` — restore what v2 dropped: **Architecture** for this project's own rules
       (distinct from design-guide's universal ones), the per-decision **Decisions** structure with
       chosen/why/rejected/accepted-risk, **Resolving what domain-spec left open**, and **Testing
