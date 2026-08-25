@@ -65,7 +65,35 @@ file in the template**, with `/scaffold` adding only the npm script and the per-
   `*Surfaces: §1 … · §2 …*` to `IS-` identifiers and then finding an end-to-end file citing all of
   them together — meaningfully more parsing than the two-direction identifier check.
 
-**Proposal.** *Not written yet — waiting on the questions above.*
+**Answers given at the gate.** The command exits non-zero **only on a dead citation** — a test
+naming an identifier that no longer exists, which is always a real defect. Uncovered rules are
+reported prominently but do not fail, because on a young project most rules legitimately have no
+test yet, and a command that is red every day is excluded from CI within a week. Judging uncovered
+rules belongs to `/sanity-check`. Journey end-to-end coverage also moves there, keeping this goal to
+the mechanical check.
+
+**Proposal.**
+
+- [ ] `tools/spec-coverage.mjs` — identifiers out of the specifications, skipping blockquoted
+      example lines; citations out of test names; reported in both directions. Non-zero exit on a
+      dead citation only
+- [ ] Configuration: an optional `specCoverage` block in `package.json` for the specification and
+      test globs, with working defaults when it is absent — the tool has to run in a repository with
+      no `package.json` at all, which is exactly what this one is
+- [ ] `tools/spec-coverage.test.mjs`, run by `node --test`. Node 24 ships a test runner, so the
+      template can test its own tool without acquiring a single dependency
+- [ ] `spec:coverage` added to the recipe's `package.json`, and the `RECIPE.md` line explaining its
+      absence deleted — it was absent only because the tool did not exist
+- [ ] Journey end-to-end coverage moved onto the `/sanity-check` backlog item, carrying what it
+      needs: `*Surfaces: §n …*` resolved to `IS-` identifiers, then an end-to-end file citing all of
+      them together
+
+**Try it:** `node tools/spec-coverage.mjs` in this repository reports the template's own stub
+identifiers as uncovered and exits 0, with none of the fourteen blockquoted example identifiers
+appearing in the report. `node --test tools/` passes, including a fixture where a test cites a
+retired `DS-9.9` and the tool exits 1.
+
+**Covers:** none — toolchain, not product behaviour.
 
 **Sign-off:** ☐
 
