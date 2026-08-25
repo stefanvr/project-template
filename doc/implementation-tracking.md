@@ -50,18 +50,32 @@ recipe two, promoted from a real project rather than pre-built.
       a verified remote, and deploy-on-day-one. *Nothing new to promote:* every rule in it was
       already settled in `workflow.md` or `environment.md`, which is what a skill carrying
       procedure rather than rationale should look like
-- [ ] `recipes/vite-ts/` — the files themselves, plus `RECIPE.md` saying what it assumes and what it
-      deliberately leaves out
-- [ ] Deploy pipeline in the recipe: CI runs the tests, then deploys to **GitHub Pages**, with a
-      build identifier injected so a deploy can be *confirmed* rather than assumed
-- [ ] Git in the skill: `init`, `.gitignore`, first commit, then the guided remote with a
-      `git ls-remote` check that it actually worked
+- [x] `recipes/vite-ts/` with `RECIPE.md` → the recipe carries its own reasoning, which is what a
+      recipe is for. Verified by scaffolding it: install clean, `typecheck` clean, 3 unit tests and
+      6 end-to-end tests passing at both viewports. The vitest/vite config split is deliberate and
+      load-bearing — unit tests must see the identifier *absent* so the `unknown` fallback is the
+      path under test rather than dead code
+- [x] Deploy pipeline: typecheck, unit and end-to-end tests all run **before** anything publishes,
+      so a red build cannot reach the live site. Verified locally that the Pages subpath build is
+      right — assets resolve under `/{repo}/`, which is the failure that 404s every script on a
+      site that otherwise looks fine — and that the identifier is injected into the bundle
+- [x] Git: `init`, the recipe's `.gitignore`, first commit, then the guided-and-verified remote →
+      the skill half landed with item 3, the `.gitignore` with the recipe
 - [x] `environment.md` written *as the console steps are done* → the rule landed inside
       `/scaffold` with item 3, rather than needing a change of its own. **Planning overlap worth
       noting:** items 3, 6 and 7 all describe one artifact, so the checklist counted the skill
       three times. Item 6 is genuinely still open, but only for the `.gitignore` the recipe
       carries — its skill half is written
 - [ ] Verify by scaffolding a throwaway sibling directory end to end, then deleting it
+      - **Local legs done and passing:** scaffold, install, typecheck, 3 unit tests, 6 end-to-end
+        tests at both viewports, the Pages subpath build, and the identifier reaching the bundle.
+        Throwaway deleted; this repository confirmed untouched
+      - **Live leg outstanding:** *"once pushed the live URL shows a build identifier matching
+        `main`"* needs a real repository with Pages enabled. Until that runs, the workflow file is
+        reasoned about rather than observed — which is precisely the distinction `workflow.md`
+        warns about, so it is not being ticked
+      - **Promoted from the attempt:** `environment.md` silent failure 5 — a variable crossing the
+        WSL boundary arriving empty, and `cp -r $R/.` becoming `cp -r /.`
 
 ---
 

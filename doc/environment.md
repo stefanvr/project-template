@@ -74,6 +74,18 @@ error points somewhere unrelated — `unexpected EOF while looking for matching`
 ordinary English contractions into a document. Write files with an editor or a file-writing tool
 rather than assembling them inside a shell string; this one has cost time more than once.
 
+**5. A variable inside a command string sent across the WSL boundary can arrive empty — and an
+unset variable expands to nothing rather than failing.** Assigning `R=…` and then writing
+`cp -r $R/. target/` in the same string produced `cp -r /. target/`: an attempt to copy the entire
+filesystem root, which ran for a while and left 3.4 GB of nonsense before failing on an unrelated
+error. Nothing warned, because an empty expansion is a perfectly valid command.
+
+Three habits prevent it, all cheap: **use absolute paths rather than variables** across the
+boundary, **`set -u`** so an unset variable aborts instead of vanishing, and — best — **write the
+script to a file and run that**, since the quoting layer is where this whole class of problem
+lives. This is the same root cause as silent failure 4, and between them they have cost more time
+than anything else on this page.
+
 ### Tools that assume a desktop
 
 These do not fail silently — they hang, which is its own kind of time sink, because nothing
