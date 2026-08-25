@@ -19,83 +19,44 @@ test is mechanical: delete the text, and see whether anything is now missing.
 ---
 
 ## Now
-
-*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
-
----
-
-## Planning
-
 ### Goal: a rule with no test, and a test citing a rule that no longer exists, are both findable by running a command
 
-**Discussion.** The identifier scheme in both specifications is inert until something reads it, and
-`spec:coverage` is already promised in five places — `CLAUDE.md`, `domain-spec.md`, `build-stage`,
-`scaffold` and the recipe's `RECIPE.md`, the last of which deliberately omits the npm script because
-the tool did not exist. This goal is what makes those promises true.
+**Outcome:** the identifier scheme in both specifications stops being a convention nobody checks —
+one command reports what is implemented, what is verified, and what cites a rule that has been
+retired.
 
-The DRY check is clean: the conventions are already decided elsewhere, and this reads them rather
-than restating them.
+**Try it:** `node tools/spec-coverage.mjs` in this repository reports the template's own stub
+identifiers and exits 0, with none of the fourteen blockquoted example identifiers appearing in the
+report. `node --test tools/` passes, including a fixture where a test cites a retired `DS-9.9` and
+the tool exits 1.
 
-**Carried from this goal's earlier planning gate**, before it was deferred for `/scaffold`: the tool
-is **runner-agnostic**, reading identifiers out of test *names* rather than parsing any runner's
-output, because Q&C uses `node:test`, Garden uses Vitest and both use Playwright. It **ships as a
-file in the template**, with `/scaffold` adding only the npm script and the per-project paths.
+**Covers:** none — toolchain, not product behaviour.
 
-**Settled by reading the repository rather than by asking:**
+**Signed off** 2026-08-25. Input given at the gate: report **implementation and test coverage
+separately**, so a rule shows as implemented, tested, both, or neither. *Implemented but untested* is
+the gap most worth seeing, and letting a module citation count as coverage would hide exactly that.
 
-- The identifier format is `**[DS-n.n]**` and `**[IS-n.n]**`, bolded and bracketed.
-- Tests citing identifiers *in their names* is already asserted in `build-stage` and `CLAUDE.md`, so
-  it is a convention to implement, not a decision to make.
-- **Fourteen identifiers currently sit inside blockquoted illustrative examples** — seven in each
-  specification. The tool must skip lines beginning `>` or it will report the template's own worked
-  examples as uncovered rules, which would make its first run noise.
-- Defaults with no configuration: specifications from `doc/*-spec.md`, tests from `test/**` and
-  `e2e/**`. `/scaffold` overrides them per project.
-- This goal must also add the `spec:coverage` script to the recipe and delete the `RECIPE.md` line
-  explaining its absence.
-
-**Open questions** — the repository cannot answer these:
-
-- **What should a rule with no test do to the exit code?** A dead citation — a test naming an
-  identifier that no longer exists — is unambiguously wrong and should fail. An *uncovered* rule is
-  different: mid-build most rules have no test yet, so failing on those makes the command red from
-  the first day and therefore ignored.
-- **Does journey end-to-end coverage belong in this goal or in `/sanity-check`?** It is the only
-  coverage a journey has, since journeys carry no identifiers deliberately. But it needs mapping
-  `*Surfaces: §1 … · §2 …*` to `IS-` identifiers and then finding an end-to-end file citing all of
-  them together — meaningfully more parsing than the two-direction identifier check.
-
-**Answers given at the gate.** The command exits non-zero **only on a dead citation** — a test
-naming an identifier that no longer exists, which is always a real defect. Uncovered rules are
-reported prominently but do not fail, because on a young project most rules legitimately have no
-test yet, and a command that is red every day is excluded from CI within a week. Judging uncovered
-rules belongs to `/sanity-check`. Journey end-to-end coverage also moves there, keeping this goal to
-the mechanical check.
-
-**Proposal.**
-
-- [ ] `tools/spec-coverage.mjs` — identifiers out of the specifications, skipping blockquoted
-      example lines; citations out of test names; reported in both directions. Non-zero exit on a
-      dead citation only
-- [ ] Configuration: an optional `specCoverage` block in `package.json` for the specification and
-      test globs, with working defaults when it is absent — the tool has to run in a repository with
-      no `package.json` at all, which is exactly what this one is
+- [ ] `tools/spec-coverage.mjs` — identifiers out of the specifications, skipping blockquoted example
+      lines; citations out of test names; reported in both directions. Non-zero exit on a dead
+      citation only
+- [ ] Implementation scan, reported **separately** from test coverage: module header comments cite
+      the rule they implement (`design-guide.md`), so the same mechanism finds them. A rule may be
+      implemented, tested, both, or neither, and the four states are distinguished
+- [ ] Configuration: an optional `specCoverage` block in `package.json` for the specification,
+      source and test globs, with working defaults when absent — the tool must run in a repository
+      with no `package.json`, which is what this one is
 - [ ] `tools/spec-coverage.test.mjs`, run by `node --test`. Node 24 ships a test runner, so the
-      template can test its own tool without acquiring a single dependency
+      template tests its own tooling without acquiring a dependency
 - [ ] `spec:coverage` added to the recipe's `package.json`, and the `RECIPE.md` line explaining its
       absence deleted — it was absent only because the tool did not exist
 - [ ] Journey end-to-end coverage moved onto the `/sanity-check` backlog item, carrying what it
       needs: `*Surfaces: §n …*` resolved to `IS-` identifiers, then an end-to-end file citing all of
       them together
 
-**Try it:** `node tools/spec-coverage.mjs` in this repository reports the template's own stub
-identifiers as uncovered and exits 0, with none of the fourteen blockquoted example identifiers
-appearing in the report. `node --test tools/` passes, including a fixture where a test cites a
-retired `DS-9.9` and the tool exits 1.
+---
 
-**Covers:** none — toolchain, not product behaviour.
-
-**Sign-off:** ☐
+## Planning
+*Empty. Goals are planned one at a time, when they are about to be built.*
 
 <details>
 <summary>The loop goal, as it was planned — kept once, as the worked example of this section</summary>
@@ -148,16 +109,6 @@ appear in **Now**.
 Goals, not tasks. Each is one line stating an outcome; it gets its checklist when it reaches
 Planning, not before.
 
-- [ ] **A rule with no test, and a test citing a rule that no longer exists, are both findable by
-      running a command.** `tools/spec-coverage.mjs`, reading `DS-`/`IS-` identifiers.
-      - **Settled at its planning gate, before it was deferred:** the tool is **runner-agnostic** —
-        it reads identifiers out of test *names* and never parses a runner's output, because Q&C
-        uses `node:test`, Garden uses Vitest, and both use Playwright. It **ships as a file in the
-        template**, with `/scaffold` adding only the npm script and the per-project paths, since
-        the logic is identical everywhere and only the paths are not.
-      - **Carries a forward obligation from the journeys goal:** a journey whose named surfaces are
-        never exercised together by any end-to-end test must be reported. That is the only coverage
-        a journey has, since journeys deliberately carry no identifiers.
 - [ ] **The documents can be audited against the code in one pass.** `/sanity-check`, which runs the
       coverage script and adds the judgement calls it cannot make.
       - **Carries a forward obligation from the domain-spec goal:** it must report **ceremonial
