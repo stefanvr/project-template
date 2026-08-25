@@ -56,8 +56,11 @@ recipe two, promoted from a real project rather than pre-built.
       build identifier injected so a deploy can be *confirmed* rather than assumed
 - [ ] Git in the skill: `init`, `.gitignore`, first commit, then the guided remote with a
       `git ls-remote` check that it actually worked
-- [ ] `environment.md` written *as the console steps are done*, not afterwards — this is the fix for
-      the setup notes living in two places
+- [x] `environment.md` written *as the console steps are done* → the rule landed inside
+      `/scaffold` with item 3, rather than needing a change of its own. **Planning overlap worth
+      noting:** items 3, 6 and 7 all describe one artifact, so the checklist counted the skill
+      three times. Item 6 is genuinely still open, but only for the `.gitignore` the recipe
+      carries — its skill half is written
 - [ ] Verify by scaffolding a throwaway sibling directory end to end, then deleting it
 
 ---
