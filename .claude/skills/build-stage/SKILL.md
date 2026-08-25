@@ -14,12 +14,15 @@ Read **Now** in `doc/implementation-tracking.md`.
 - **Empty** — stop. Say so, and offer `/plan-goal`.
 - **Present but not signed off** — stop. The sign-off is the gate; building without it is what the
   gate exists to prevent.
-- **Present and signed off** — proceed, resuming from the first unticked item if some are done.
+- **Present, signed off, items remaining** — proceed from the first unticked item.
+- **Present, signed off, every item ticked** — the work is done and the goal is waiting to land.
+  Skip to step 7. If the branch is not merged yet, say so and stop there; landing follows the merge,
+  and merging is not yours to do.
 
 ## 1. Branch
 
-Create the goal's branch off the integration branch named at the top of `workflow.md`. One branch
-per goal.
+Create `goal/{slug}` off `main`. One feature branch per goal, and **never commit a goal straight to
+`main`** — including small corrective work, which is the kind that slips through.
 
 **Git is performed, not narrated** — create it, do not describe how to. This is a standing
 preference, recorded in `workflow.md`.

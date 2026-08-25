@@ -45,6 +45,22 @@ working rather than being skipped.
 - [x] Both skills hold the WIP limit → `workflow.md`, which now also says an override must be
       **recorded**. Writing the decline path is what surfaced that: a limit with an unrecorded
       exception is indistinguishable from no limit a week later
+- [x] **Ad hoc:** branching default corrected → `workflow.md`. `main` is the integration branch and
+      every goal gets a `goal/{slug}` feature branch; a long-running integration branch is now
+      recorded as **rejected with its reasons**, rather than merely absent, so it cannot return as
+      a fresh good idea. Found because this repository's own first twelve commits went straight to
+      `main`
+- [x] **Ad hoc:** the `Ad hoc:` convention itself → `workflow.md` §Work found mid-goal. Writing the
+      item above is what surfaced that v2 had dropped v1's convention without ever deciding to,
+      leaving no home for real work found mid-goal
+- [x] **Ad hoc:** remote added and both branches pushed, so the workflow's step 6 is satisfiable at
+      all → the SSH-rather-than-HTTPS finding is recorded as a forward obligation on the
+      supporting-documents goal, because `environment.md` does not exist yet to receive it
+- [x] **Ad hoc:** both skills now distinguish *in progress* from *done but not landed*, and each
+      refusal names the next command → the skills themselves. Found by running the **Try it** line:
+      `/plan-goal` refused correctly but told the user to "finish" a goal whose every item was
+      already ticked, and offered no route onward, while `/build-stage` had no defined behaviour
+      for an all-ticked goal at all. Two skills each correctly saying no is a dead end, not a gate
 
 ---
 
@@ -120,6 +136,12 @@ Planning, not before.
       directories in the skill — a proven setup is promoted by adding one.
 - [ ] **The supporting documents exist in v2 shape.** `tech-spec`, `environment`, `style-guide`,
       `design-guide` — each reduced to its Owns/Not here header plus what a real project fills in.
+      - **Carries a forward obligation:** `environment.md` must record that the GitHub remote is
+        reached over **SSH**, not the HTTPS URL — HTTPS is not configured here, and it prompts for
+        credentials no helper supplies, so it hangs rather than failing. And that git runs *inside
+        WSL*, because the Windows host carries a different identity and will attribute commits to
+        the wrong person without warning. Both are silent failures, which is the class of problem
+        `environment.md` exists for.
 - [ ] **The template is proven against a real project.** Rebuild Garden's documents in v2 shape and
       see what the format cannot express. This is the goal that finds the design errors, and it is
       the only real test of the *not everything fits a command and an event* worry.

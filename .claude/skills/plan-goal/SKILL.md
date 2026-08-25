@@ -10,8 +10,19 @@ of this lives in `doc/workflow.md`; what follows is the procedure.
 
 ## First: hold the WIP limit
 
-Read **Now**. If a goal is already there, **stop and say which one**, and that finishing it comes
-first. Do not plan alongside it.
+Read **Now**. If a goal is there, **stop and say which one** — and say the right thing about it,
+because two states look identical at a glance and need opposite answers:
+
+| State of the goal in Now | What to say |
+|---|---|
+| **Unticked items remain** — in progress | Finishing it comes first. Offer `/build-stage` to continue it. |
+| **Every item ticked** — done, not landed | The work is finished; it needs merging and then landing. Offer `/build-stage`, whose step 7 deletes the goal text and writes the **Done** row. |
+
+**Always name the next command.** Refusing without naming a way out is worse than not refusing:
+`/plan-goal` declines because Now is occupied, `/build-stage` declines on an empty Now, and the
+user is caught between two skills each correctly saying no.
+
+Do not plan alongside the goal in Now.
 
 Override is the user's to give explicitly. If they do, note in the tracking document that two goals
 are open and which was the interruption — an unrecorded second goal is how a WIP limit stops being
