@@ -20,55 +20,24 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
-
----
-
-## Planning
-
 ### Goal: a new project reaches a working, tested skeleton without re-solving the toolchain
 
-**Discussion.** Promoted ahead of `spec:coverage` at that goal's own planning gate. The template
-currently cannot start a project at all, which makes this the thinnest slice that reaches end to
-end — and it creates the `package.json` the coverage script would have needed anyway, so building
-it first removes a retrofit rather than adding one.
+**Outcome:** copying this template and running `/scaffold` produces a project that builds, tests and
+deploys, with its `tech-spec.md` and `environment.md` written as the setup happens rather than
+reconstructed afterwards.
 
-**It never runs in this repository.** A project is created by copying the template and scaffolding
-*inside the copy*; scaffolding here would turn the template into an application. A `.dev-template`
-marker file at the root makes that mechanical rather than a thing to remember: `/scaffold` refuses
-to run beside it, and copying a new project deletes it. Verification uses a throwaway sibling
-directory, deleted afterwards.
+**Try it:** copy the template to a throwaway sibling directory, run `/scaffold`, answer the
+interview. Afterwards `npm test` and `npm run test:e2e` pass, `git log` shows the scaffold commit,
+and once pushed the live URL shows a build identifier matching `main`. Then delete the directory and
+confirm this repository is untouched.
 
-**Recipes, not a starter directory.** A recipe is a directory inside the skill holding a proven
-setup; the skill picks one and adapts it, or goes freehand when none fits. Promoting a setup that
-worked is then adding a folder, which is what makes this cheaper than v1's single `starter/`.
+**Covers:** none. This goal is toolchain, not product behaviour, so it implements no `DS-` or `IS-`
+identifier. The **Covers** field not fitting a meta-goal is a small format finding, to be promoted
+if it recurs.
 
-Two decisions carried in from the `spec:coverage` planning conversation, because this goal creates
-the file they land in: the coverage script ships as `tools/spec-coverage.mjs` in the template, and
-`/scaffold` adds only the npm script and the per-project paths.
-
-**Open questions** — asked because the repository cannot answer them:
-
-- **Which recipes ship first?** The two real projects point at two: a static or SPA site on GitHub
-  Pages with `node:test` and Playwright, and a Vite/TypeScript app on Firebase Hosting with Vitest,
-  Playwright and Firestore. Both, one, or neither to begin with?
-- **Does `/scaffold` create the git repository and its remote?** We just lost time to a workflow
-  that said *push before review* while no remote existed. Creating one needs `gh`, which is not
-  installed on either side of this machine.
-- **Does the skeleton deploy on day one?** Garden's first stage deployed before there was anything
-  worth deploying, and it flushed out two failures — a service account with hosting rights only,
-  and an unregistered default bucket — that were invisible to every local test. It also makes this
-  goal much larger, and needs cloud accounts to exist.
-
-**Answers given at the gate.** The first recipe deploys to **GitHub Pages**: it makes the Try it
-runnable today with no account to provision and no billing, and the Firebase shape arrives as recipe
-two, promoted from a real project rather than pre-built. One recipe to start — Vite + TypeScript + Vitest + Playwright — with
-the second promoted from whatever the next real project proves. `/scaffold` runs local git and then
-guides and *verifies* the remote, rather than depending on `gh`, which is installed on neither side
-of this machine. The skeleton deploys on day one: the recipe ships the pipeline, and the console
-steps it cannot automate are guided and written into `environment.md` as they are done.
-
-**Proposal.**
+**Signed off** 2026-08-25. Input given at the gate: the first recipe deploys to **GitHub Pages** —
+runnable today with no account to provision and no billing, with the Firebase shape arriving as
+recipe two, promoted from a real project rather than pre-built.
 
 - [ ] `.dev-template` marker at the repository root, and `/scaffold` refusing to run beside it
 - [ ] `doc/tech-spec.md` and `doc/environment.md` in v2 shape — **pulled out of the
@@ -85,17 +54,11 @@ steps it cannot automate are guided and written into `environment.md` as they ar
       the setup notes living in two places
 - [ ] Verify by scaffolding a throwaway sibling directory end to end, then deleting it
 
-**Try it:** copy the template to a throwaway sibling directory, run `/scaffold`, answer the
-interview. Afterwards `npm test` and `npm run test:e2e` pass, `git log` shows the scaffold commit,
-and once pushed the live URL shows a build identifier matching `main`. Then delete the directory
-and confirm this repository is untouched.
+---
 
-**Covers:** none. This goal is toolchain, not product behaviour, so it implements no `DS-` or `IS-`
-identifier. Worth noting that the **Covers** field does not fit a meta-goal — a small finding about
-the format, to be promoted if it recurs.
+## Planning
 
-**Sign-off:** ☐
-
+*Empty. Goals are planned one at a time, when they are about to be built.*
 
 <details>
 <summary>The loop goal, as it was planned — kept once, as the worked example of this section</summary>
