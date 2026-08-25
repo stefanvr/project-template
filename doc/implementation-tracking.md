@@ -56,9 +56,8 @@ the gap most worth seeing, and letting a module citation count as coverage would
       deleted → the recipe. *Nothing to promote:* the rule that a script name must point at
       something real is already in `/scaffold`, and this is that rule being honoured rather than a
       new lesson
-- [ ] Journey end-to-end coverage moved onto the `/sanity-check` backlog item, carrying what it
-      needs: `*Surfaces: §n …*` resolved to `IS-` identifiers, then an end-to-end file citing all of
-      them together
+- [x] Journey end-to-end coverage moved onto the `/sanity-check` backlog item → **Backlog**, with
+      what it needs written out so the goal is plannable by someone who was not in this conversation
 
 ---
 
@@ -124,8 +123,12 @@ Planning, not before.
         symptoms of event storming being forced onto something that is not a workflow, which is the
         failure mode most likely to bite. Defined in [domain-spec.md](domain-spec.md)'s *When it
         does not fit*; nothing enforces it yet.
-      - **And one from the journeys goal:** the backbone diagram and the journey steps must agree in
-        both directions.
+      - **And two from the journeys goal:** the backbone diagram and the journey steps must agree
+        in both directions; and a journey whose named surfaces are never exercised together by any
+        end-to-end test must be reported. The second is the only coverage a journey has, since
+        journeys deliberately carry no identifiers — it needs `*Surfaces: §n …*` resolved to `IS-`
+        identifiers, then an end-to-end file citing all of them together. Moved here from the
+        coverage goal, which kept itself to the mechanical check.
 - [ ] **The remaining supporting documents exist in v2 shape.** `style-guide` and `design-guide`,
       each reduced to its Owns/Not here header plus what a real project fills in. `tech-spec` and
       `environment` moved into the scaffold goal, which writes into them — and the SSH-and-WSL
