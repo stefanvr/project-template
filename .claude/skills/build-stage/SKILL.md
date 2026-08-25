@@ -97,20 +97,25 @@ same session. Two traps that have cost real time:
 
 Then answer the goal's **Try it** line by actually doing it.
 
-## 6. Push, and stop
+## 6. Push, and hand over for review
 
-Push the branch. Then **stop**.
+Push the branch, say plainly what to look at, and **stop there**.
 
-**Do not merge.** Review is a human gate, and a skill that merges has quietly removed one. Say the
-branch is pushed and what to look at.
+**Never merge on your own judgement.** When the reviewer has read the diff and tells you to merge,
+merge: then push `main`, and delete the branch locally and on the remote. The gate is the review,
+not the typing — handing a command list back to someone who has already decided is friction, not
+rigour.
 
-## 7. When the goal lands
+## 7. Land the goal
 
-After the user confirms it is merged:
+Landing is a file change like any other, so it gets its own branch — `goal/land-{slug}` — never a
+commit straight to `main`.
 
 1. Delete the goal's text from **Now**.
 2. Add a row to **Done**: the goal, the date, and **which documents received its knowledge**.
-3. Check nothing was lost by the deletion. If something was, promotion was not finished — fix it
-   before moving on.
-4. Offer `/plan-goal` for the next one, or `/sanity-check` if several goals have landed since the
-   last audit.
+3. **Check nothing was lost.** Re-read what you deleted. If anything in it is not now somewhere
+   durable, promotion was not finished — fix that before the deletion stands. This is the moment
+   the deletion rule is actually tested.
+4. Push and hand over for review, as in step 6.
+5. Once merged, offer `/plan-goal` for the next goal, or `/sanity-check` if several have landed
+   since the last audit.

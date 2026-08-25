@@ -56,6 +56,12 @@ working rather than being skipped.
 - [x] **Ad hoc:** remote added and both branches pushed, so the workflow's step 6 is satisfiable at
       all → the SSH-rather-than-HTTPS finding is recorded as a forward obligation on the
       supporting-documents goal, because `environment.md` does not exist yet to receive it
+- [x] **Ad hoc:** merging happens on instruction rather than being refused → `workflow.md` §Git is
+      performed, not narrated, and `/build-stage` steps 6 and 7. The old rule said the skill never
+      merges, which conflated the decision with the typing: the reviewer had read the diff and was
+      still handed a command list. The same fix records that **landing a goal is itself a file
+      change** and so needs its own branch — which nothing had said, and which would have put a
+      tidy-up commit straight on `main`
 - [x] **Ad hoc:** both skills now distinguish *in progress* from *done but not landed*, and each
       refusal names the next command → the skills themselves. Found by running the **Try it** line:
       `/plan-goal` refused correctly but told the user to "finish" a goal whose every item was
