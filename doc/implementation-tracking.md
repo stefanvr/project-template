@@ -60,7 +60,37 @@ the file they land in: the coverage script ships as `tools/spec-coverage.mjs` in
   and an unregistered default bucket — that were invisible to every local test. It also makes this
   goal much larger, and needs cloud accounts to exist.
 
-**Proposal.** *Not written yet — waiting on the questions above.*
+**Answers given at the gate.** One recipe to start — Vite + TypeScript + Vitest + Playwright — with
+the second promoted from whatever the next real project proves. `/scaffold` runs local git and then
+guides and *verifies* the remote, rather than depending on `gh`, which is installed on neither side
+of this machine. The skeleton deploys on day one: the recipe ships the pipeline, and the console
+steps it cannot automate are guided and written into `environment.md` as they are done.
+
+**Proposal.**
+
+- [ ] `.dev-template` marker at the repository root, and `/scaffold` refusing to run beside it
+- [ ] `doc/tech-spec.md` and `doc/environment.md` in v2 shape — **pulled out of the
+      supporting-documents goal**, because `/scaffold` cannot write into documents that have no
+      shape yet. That goal keeps `style-guide` and `design-guide`
+- [ ] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, and the guard
+- [ ] `recipes/vite-ts/` — the files themselves, plus `RECIPE.md` saying what it assumes and what it
+      deliberately leaves out
+- [ ] Deploy pipeline in the recipe: CI runs the tests, then deploys, with a build identifier
+      injected so a deploy can be *confirmed* rather than assumed
+- [ ] Git in the skill: `init`, `.gitignore`, first commit, then the guided remote with a
+      `git ls-remote` check that it actually worked
+- [ ] `environment.md` written *as the console steps are done*, not afterwards — this is the fix for
+      the setup notes living in two places
+- [ ] Verify by scaffolding a throwaway sibling directory end to end, then deleting it
+
+**Try it:** copy the template to a throwaway sibling directory, run `/scaffold`, answer the
+interview. Afterwards `npm test` and `npm run test:e2e` pass, `git log` shows the scaffold commit,
+and once pushed the live URL shows a build identifier matching `main`. Then delete the directory
+and confirm this repository is untouched.
+
+**Covers:** none. This goal is toolchain, not product behaviour, so it implements no `DS-` or `IS-`
+identifier. Worth noting that the **Covers** field does not fit a meta-goal — a small finding about
+the format, to be promoted if it recurs.
 
 **Sign-off:** ☐
 
