@@ -20,7 +20,44 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
+### Goal: the document set is complete, and nothing has fallen between tech-spec and design-guide
+
+**Outcome:** every reference in the document set resolves, and the question *how is code structured
+or layered* lands on a document that answers it — including the module-header rule the coverage tool
+already depends on.
+
+**Try it:** follow every markdown link in `README.md`, `CLAUDE.md` and `doc/*.md` — all resolve.
+Open `doc/design-guide.md` and find, stated as a rule, the bracketed-identifier module header that
+`tools/spec-coverage.mjs` reads. `node tools/spec-coverage.mjs` still exits 0.
+
+**Covers:** none — process documents, not product behaviour.
+
+**Signed off** 2026-08-25. Input given at the gate: `design-guide` states CQRS and
+ports-and-adapters as the **default with exit conditions**, since an unconditional rule meeting a
+small project gets quietly ignored and takes the document's credibility with it. `style-guide`
+**keeps v1's scaffolding**. The named mantras — *leave it better than you found it*, and the
+flow-and-constraints one — are **deliberately left out**: the second is not well formulated yet, and
+the workflow already has both baked in more or less. Introduce them later if they earn it, rather
+than writing a half-stated rule into a document whose whole value is that its rules are precise.
+
+- [x] `doc/design-guide.md` → the document itself, shipped filled in, each architectural rule
+      carrying its **when not to**. **Closes a real gap:** the module-header citation format —
+      bracketed `[DS-n.n]` — is now stated as a rule, and `tools/spec-coverage.mjs` had been
+      depending on it with no document saying so, which meant a carefully written comment could
+      read as unimplemented
+- [x] `doc/style-guide.md` → the document itself, v1's structure as empty scaffolding. *Nothing to
+      promote:* it is a checklist of what to decide, and every decision in it is per-project
+- [x] `doc/tech-spec.md` restored → the document, plus the boundary now stated in **both** headers:
+      design-guide holds what would be true on any project, tech-spec holds this project's
+      application of it and its own rules besides. Architecture, the per-decision structure,
+      *Resolving what domain-spec left open* and *Testing strategy* are all back
+- [x] Every cross-reference resolves → `tools/check-links.mjs`, left behind so `/sanity-check` can
+      call it rather than re-deriving it. It found two more dead links on its first run that nobody
+      had noticed
+- [x] **Ad hoc:** `doc/discovery/` created with its conventions → `doc/discovery/README.md`: the
+      freeze rule, the dated naming, and evidence-per-finding. It was referenced by `README.md` and
+      `domain-spec.md` and did not exist. Found by the checker immediately, which is the whole
+      argument for writing the check rather than eyeballing the links
 
 ---
 
@@ -92,10 +129,6 @@ Planning, not before.
         journeys deliberately carry no identifiers — it needs `*Surfaces: §n …*` resolved to `IS-`
         identifiers, then an end-to-end file citing all of them together. Moved here from the
         coverage goal, which kept itself to the mechanical check.
-- [ ] **The remaining supporting documents exist in v2 shape.** `style-guide` and `design-guide`,
-      each reduced to its Owns/Not here header plus what a real project fills in. `tech-spec` and
-      `environment` moved into the scaffold goal, which writes into them — and the SSH-and-WSL
-      forward obligation was discharged there.
 - [ ] **The template is proven against a real project.** Rebuild Garden's documents in v2 shape and
       see what the format cannot express. This is the goal that finds the design errors, and it is
       the only real test of the *not everything fits a command and an event* worry.
