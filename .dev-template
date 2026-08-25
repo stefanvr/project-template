@@ -1,15 +1,36 @@
 This file marks the repository as the development template itself, rather than a project made
 from it.
 
-`/scaffold` refuses to run in a directory containing this file. To start a project:
+`/scaffold` refuses to run in a directory containing this file. This file is the single source for
+the copy sequence — `README.md` and `/scaffold` both point here rather than restating it, because a
+five-step list written in three places is three places to forget a step.
 
-  1. Copy this repository to a new directory — copy, do not clone. A new project does not want
-     this repository's history, and `doc/implementation-tracking.md` here records the template's
-     own build rather than the project's.
+To start a project:
+
+  1. Copy this repository to a new directory — copy, do not clone, and drop `.git`. A new project
+     does not want this repository's history, and `/scaffold` runs `git init` itself.
+
   2. Delete this file.
-  3. Clear `doc/implementation-tracking.md` down to its rules, and delete the illustrative blocks
-     in `doc/domain-spec.md` and `doc/implementation-spec.md`.
-  4. Run `/scaffold`.
 
-The guard exists because scaffolding in place would turn the template into an application, and
-that is a mistake worth making impossible rather than merely discouraging.
+  3. Clear `doc/implementation-tracking.md` down to its rules: keep the header and the section
+     headings, empty everything under them, and start with an empty Backlog.
+
+  4. Delete the illustrative example blocks — the "⚠️ Illustrative example — delete this whole
+     block" quotes — from `doc/domain-spec.md` and `doc/implementation-spec.md`.
+
+  5. Replace `README.md`. The one you copied describes the dev template, not your project.
+     `/scaffold` writes a project README from its interview, so this can simply be emptied first.
+
+  6. Run `/scaffold`.
+
+Keep `tools/` in full, including `tools/fixtures/` and `tools/spec-coverage.test.mjs`. The tools
+ship into every project as code, and code that ships untested is exactly what `doc/design-guide.md`
+argues against — a project that adjusts the `specCoverage` globs needs the tests that catch it
+breaking them. They are about a hundred lines and run in milliseconds.
+
+Delete nothing else. `doc/environment.md`'s silent failures are about the machine, not the template,
+and stay true in every project on it. `doc/style-guide.md` is deleted only by a project with no
+visual surface.
+
+The guard exists because scaffolding in place would turn the template into an application, and that
+is a mistake worth making impossible rather than merely discouraging.

@@ -67,6 +67,15 @@ hour in the loop and the cheapest place to be wrong.
    rather than a rewrite — and it is what the old *"spec it and start"* opt-out was really
    reaching for.
 
+**Not every goal needs all four movements at length.** A correction, or a defect found between
+goals, often arrives already decided — there is nothing to discuss and nothing to ask. Say so, write
+the checklist, take the sign-off in the same message, and move on. The movements are a checklist of
+what has to be *covered*, not a required length, and a gate that costs more than the work it guards
+is a gate that gets skipped for real work later.
+
+What does not collapse is the record: the goal still gets its outcome, its **Try it** and its
+promotion on the way out. Small is not the same as untracked.
+
 **Answer the Try it line during planning, not after.** It is the sequencing rule's only real
 enforcement: a goal you cannot describe exercising depends on something that does not exist yet,
 and finding that out costs a sentence now instead of a rewrite later. "The code is there" is a

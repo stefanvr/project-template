@@ -26,12 +26,13 @@ task is ticked off.
 
 ## Starting a project
 
-**Copy** this repository to a new directory — copy, do not clone; a new project does not want the
-template's own history. Delete `.dev-template`, clear `doc/implementation-tracking.md` down to its
-rules, delete the illustrative blocks in the two specifications, then run `/scaffold`.
+**The sequence lives in [`.dev-template`](.dev-template)**, which is also the marker `/scaffold`
+refuses to run beside — so scaffolding the template in place, which would turn it into an
+application, is impossible rather than merely discouraged.
 
-`/scaffold` refuses to run beside `.dev-template`, so scaffolding the template in place — which
-would turn it into an application — is impossible rather than merely discouraged.
+In short: copy (do not clone) to a new directory, then follow the six steps in that file. It is the
+single source for them; this section and `/scaffold` both point at it rather than restating a list
+that would then have three places to drift.
 
 ## The documents
 
