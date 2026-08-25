@@ -10,15 +10,12 @@ it happens rather than afterwards.
 
 ## First: refuse to run in the template
 
-If `.dev-template` exists in the repository root, **stop.** Say that this is the template itself and
-that scaffolding here would turn it into an application, then give the sequence:
+If `.dev-template` exists in the repository root, **stop.** Say that this is the template itself,
+that scaffolding here would turn it into an application, and that the copy sequence is in
+`.dev-template` — then read that file and walk the reader through its steps.
 
-1. Copy this repository to a new directory — copy, not clone; a new project does not want the
-   template's history.
-2. Delete `.dev-template`.
-3. Clear `doc/implementation-tracking.md` down to its rules, and delete the illustrative blocks in
-   `doc/domain-spec.md` and `doc/implementation-spec.md`.
-4. Run `/scaffold` there.
+Point at the file rather than reciting a list of your own. It is the single source for the sequence,
+`README.md` points at it too, and a list restated in a third place is a third place to drift.
 
 Never offer to delete the marker as a way past this. The marker is not the obstacle; being in the
 wrong directory is.

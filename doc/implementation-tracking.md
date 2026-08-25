@@ -40,7 +40,9 @@ corner cut — see the third item.
       the tools ship into every project as code, and code that ships untested is what
       `design-guide.md` argues against. It also says what *not* to delete: `environment.md`'s silent
       failures are about the machine and stay true everywhere
-- [ ] The sequence is stated **once**, in `.dev-template`; `README.md` and `/scaffold` point at it
+- [x] The sequence is stated **once**, in `.dev-template` → `README.md` and `/scaffold` now point at
+      it instead of restating it. It was written in three places, which is three places to forget a
+      step — and the omission of `README.md` had already happened in all three
 - [ ] The gate is proportional: a goal with no open questions is planned in one message →
       `workflow.md` and `/plan-goal`
 
