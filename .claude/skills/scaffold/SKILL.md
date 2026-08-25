@@ -94,6 +94,12 @@ happens, and doing it now flushes out the deployment-only failures while there a
 rather than three hundred — credentials with the wrong scope, a missing registration, a workflow
 that builds the wrong directory. None of those are visible to any local test.
 
+**Pages enablement is manual, and must be guided then verified** like the remote is. *Settings →
+Pages → Source: GitHub Actions*, done once by the owner. Do not reach for
+`actions/configure-pages`'s `enablement: true` to avoid it — that has been tried and it fails, since
+creating a Pages site is beyond the default workflow token. Record the step in `environment.md`
+under **Provisioning** as it is done.
+
 **Inject a build identifier** — short commit SHA and UTC build time — and render it somewhere in the
 running application. It is what turns *"the deploy probably worked"* into *"the live site reads the
 same SHA as `main`"*. Degrade to `unknown` rather than throwing when it is absent.

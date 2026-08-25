@@ -46,13 +46,11 @@ jobs:
       - run: npx playwright install chromium
       - run: npm run test:e2e
 
-      # enablement: true turns Pages on via the API, so there is no manual repository setting to
-      # remember. Without it the deploy job fails on a repository nobody has visited Settings for,
-      # which is a confusing first failure on a pipeline that is otherwise correct.
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
+      # No actions/configure-pages step here, deliberately. Its `enablement: true` option looks
+      # like it would remove the manual Pages setting, and it does not: on a real run it fails with
+      # "Resource not accessible by integration", because creating a Pages site is beyond what the
+      # default workflow token may do. Enabling Pages stays a one-time repository setting.
+      #
       # GitHub project pages are served from /<repo>/, so the built asset paths have to match or
       # every script and stylesheet 404s on a site that otherwise looks perfectly fine.
       - run: npm run build

@@ -10,11 +10,11 @@ different directions.
 
 - **A browser surface exists.** Playwright is here because there is something to look at. A library
   or CLI should not take this recipe.
-- **GitHub, with Actions permitted to configure Pages.** The workflow turns Pages on itself, via
-  `actions/configure-pages` with `enablement: true`, so there is no repository setting to remember
-  and no confusing first failure on a pipeline that is otherwise correct. An organisation that
-  forbids Actions from changing Pages settings is the one case still needing
-  *Settings → Pages → Source* by hand.
+- **GitHub, with Pages already enabled** — *Settings → Pages → Source: GitHub Actions*. A
+  repository setting rather than a file, and the one manual step this recipe genuinely cannot do
+  for you. `actions/configure-pages` advertises `enablement: true` for exactly this, and it was
+  tried on a real repository: it fails with *Resource not accessible by integration*, because
+  creating a Pages site is beyond what the default workflow token may do. Observed, not assumed.
 - **Node from `.nvmrc`.** CI reads the same file the developer's shell does, so they cannot drift.
 - **`main` is the integration branch**, matching `workflow.md`.
 
