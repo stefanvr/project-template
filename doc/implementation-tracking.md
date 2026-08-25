@@ -39,7 +39,8 @@ if it recurs.
 runnable today with no account to provision and no billing, with the Firebase shape arriving as
 recipe two, promoted from a real project rather than pre-built.
 
-- [ ] `.dev-template` marker at the repository root, and `/scaffold` refusing to run beside it
+- [x] `.dev-template` marker at the repository root → the file itself, plus a **Starting a project**
+      section in `README.md`. The guard needed somewhere to send you, or refusing is just a wall
 - [ ] `doc/tech-spec.md` and `doc/environment.md` in v2 shape — **pulled out of the
       supporting-documents goal**, because `/scaffold` cannot write into documents that have no
       shape yet. That goal keeps `style-guide` and `design-guide`
