@@ -1,5 +1,10 @@
-// Tests for the coverage tool, run by `node --test tools/`. Node ships the runner, so the template
-// can verify its own tooling without acquiring a single dependency to do it.
+// Tests for the coverage tool. Node ships the runner, so the template verifies its own tooling
+// without acquiring a single dependency to do it.
+//
+//     node --test "tools/**/*.test.mjs"
+//
+// The quoted glob is not decoration: `node --test tools/` treats the directory as a module to run
+// and fails with MODULE_NOT_FOUND, which reads as a broken test file rather than a wrong command.
 //
 // Named as the behaviour claimed rather than the function called, per design-guide.md.
 
