@@ -47,10 +47,10 @@ than writing a half-stated rule into a document whose whole value is that its ru
       read as unimplemented
 - [x] `doc/style-guide.md` → the document itself, v1's structure as empty scaffolding. *Nothing to
       promote:* it is a checklist of what to decide, and every decision in it is per-project
-- [ ] `doc/tech-spec.md` — restore what v2 dropped: **Architecture** for this project's own rules
-      (distinct from design-guide's universal ones), the per-decision **Decisions** structure with
-      chosen/why/rejected/accepted-risk, **Resolving what domain-spec left open**, and **Testing
-      strategy**
+- [x] `doc/tech-spec.md` restored → the document, plus the boundary now stated in **both** headers:
+      design-guide holds what would be true on any project, tech-spec holds this project's
+      application of it and its own rules besides. Architecture, the per-decision structure,
+      *Resolving what domain-spec left open* and *Testing strategy* are all back
 - [ ] Every cross-reference in the document set resolves, checked rather than assumed, and the
       check left behind so it can be re-run
 
