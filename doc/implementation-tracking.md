@@ -36,17 +36,22 @@ the tool exits 1.
 separately**, so a rule shows as implemented, tested, both, or neither. *Implemented but untested* is
 the gap most worth seeing, and letting a module citation count as coverage would hide exactly that.
 
-- [ ] `tools/spec-coverage.mjs` — identifiers out of the specifications, skipping blockquoted example
-      lines; citations out of test names; reported in both directions. Non-zero exit on a dead
-      citation only
-- [ ] Implementation scan, reported **separately** from test coverage: module header comments cite
-      the rule they implement (`design-guide.md`), so the same mechanism finds them. A rule may be
-      implemented, tested, both, or neither, and the four states are distinguished
-- [ ] Configuration: an optional `specCoverage` block in `package.json` for the specification,
-      source and test globs, with working defaults when absent — the tool must run in a repository
-      with no `package.json`, which is what this one is
-- [ ] `tools/spec-coverage.test.mjs`, run by `node --test`. Node 24 ships a test runner, so the
-      template tests its own tooling without acquiring a dependency
+- [x] `tools/spec-coverage.mjs`, with the implementation scan and the configuration → the tool
+      itself. **One commit for three checklist items:** they are three behaviours of one file that
+      could not land separately, which is the checklist-overlap rule failing again — now sharpened
+      in `plan-goal` from *different files* to *can these be committed separately*
+      - Verified against this repository: 3 declared stubs found, all 14 blockquoted example
+        identifiers correctly excluded, exit 0. Against the fixtures: exit 1 on a dead citation
+      - `tools/fixtures/package.json` is what actually exercises the configuration path. Without it
+        the fixtures fell back to defaults and found nothing, and the path was silently untested
+- [x] `tools/spec-coverage.test.mjs` — 7 tests under `node --test`. **The invocation is
+      `node --test "tools/**/*.test.mjs"`, not `node --test tools/`:** a bare directory is treated
+      as a module to run and fails outright. The **Try it** line said the latter and was wrong
+- [x] **Ad hoc:** two false negatives came from the measuring harness rather than the tool →
+      nothing new to promote, because `workflow.md`'s *suspect the scratch script before the system*
+      and `environment.md` silent failure 5 both already cover it, and both proved themselves again.
+      The tool exits 1 on a dead citation and always did; `$CODE` crossing the WSL boundary arrived
+      empty, which made every exit-code reading untrustworthy
 - [ ] `spec:coverage` added to the recipe's `package.json`, and the `RECIPE.md` line explaining its
       absence deleted — it was absent only because the tool did not exist
 - [ ] Journey end-to-end coverage moved onto the `/sanity-check` backlog item, carrying what it
