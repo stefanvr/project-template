@@ -20,44 +20,7 @@ test is mechanical: delete the text, and see whether anything is now missing.
 
 ## Now
 
-### Goal: the document set is complete, and nothing has fallen between tech-spec and design-guide
-
-**Outcome:** every reference in the document set resolves, and the question *how is code structured
-or layered* lands on a document that answers it — including the module-header rule the coverage tool
-already depends on.
-
-**Try it:** follow every markdown link in `README.md`, `CLAUDE.md` and `doc/*.md` — all resolve.
-Open `doc/design-guide.md` and find, stated as a rule, the bracketed-identifier module header that
-`tools/spec-coverage.mjs` reads. `node tools/spec-coverage.mjs` still exits 0.
-
-**Covers:** none — process documents, not product behaviour.
-
-**Signed off** 2026-08-25. Input given at the gate: `design-guide` states CQRS and
-ports-and-adapters as the **default with exit conditions**, since an unconditional rule meeting a
-small project gets quietly ignored and takes the document's credibility with it. `style-guide`
-**keeps v1's scaffolding**. The named mantras — *leave it better than you found it*, and the
-flow-and-constraints one — are **deliberately left out**: the second is not well formulated yet, and
-the workflow already has both baked in more or less. Introduce them later if they earn it, rather
-than writing a half-stated rule into a document whose whole value is that its rules are precise.
-
-- [x] `doc/design-guide.md` → the document itself, shipped filled in, each architectural rule
-      carrying its **when not to**. **Closes a real gap:** the module-header citation format —
-      bracketed `[DS-n.n]` — is now stated as a rule, and `tools/spec-coverage.mjs` had been
-      depending on it with no document saying so, which meant a carefully written comment could
-      read as unimplemented
-- [x] `doc/style-guide.md` → the document itself, v1's structure as empty scaffolding. *Nothing to
-      promote:* it is a checklist of what to decide, and every decision in it is per-project
-- [x] `doc/tech-spec.md` restored → the document, plus the boundary now stated in **both** headers:
-      design-guide holds what would be true on any project, tech-spec holds this project's
-      application of it and its own rules besides. Architecture, the per-decision structure,
-      *Resolving what domain-spec left open* and *Testing strategy* are all back
-- [x] Every cross-reference resolves → `tools/check-links.mjs`, left behind so `/sanity-check` can
-      call it rather than re-deriving it. It found two more dead links on its first run that nobody
-      had noticed
-- [x] **Ad hoc:** `doc/discovery/` created with its conventions → `doc/discovery/README.md`: the
-      freeze rule, the dated naming, and evidence-per-finding. It was referenced by `README.md` and
-      `domain-spec.md` and did not exist. Found by the checker immediately, which is the whole
-      argument for writing the check rather than eyeballing the links
+*Empty. Nothing is in progress. `/plan-goal` takes the next goal from Backlog.*
 
 ---
 
@@ -162,3 +125,4 @@ carries identifiers — until then, deliberately empty rather than guessed at.
 | A new project reaches a working, tested skeleton without re-solving the toolchain | 2026-08-25 | `.claude/skills/scaffold` (the `.dev-template` guard, the interview, install-before-commit, guided-and-verified remote and Pages, deploy-on-day-one) · `recipes/vite-ts` with `RECIPE.md` (Node 24 LTS, why no lockfile ships, `configure-pages` rejected in place with its evidence) · `doc/tech-spec.md` and `doc/environment.md` in v2 shape, the latter carrying silent failures 1–5 · `doc/workflow.md` (suspect the scratch script before the system) · `.claude/skills/plan-goal` (checklists that count one artifact twice; empty **Covers** on a toolchain goal) · `README.md` (Starting a project) |
 | The loop runs itself — a goal goes from backlog to merged without anyone remembering the workflow | 2026-08-25 | `workflow.md` (spec input asked at the planning gate · git performed on instruction, never on the skill's own judgement · promotion refused rather than prompted · WIP overrides recorded · `main` as integration branch, long-running branches rejected with reasons · §Work found mid-goal · landing needs its own branch) · `.claude/skills/plan-goal` and `.claude/skills/build-stage` (the loop itself; refusals that name the next command; in-progress distinguished from done-but-not-landed) · **Backlog** (SSH-not-HTTPS and git-inside-WSL, as a forward obligation on the `environment.md` goal) |
 | A rule with no test, and a test citing a rule that no longer exists, are both findable by running a command | 2026-08-25 | `tools/spec-coverage.mjs` with its fixtures and tests (runner-agnostic, reading identifiers out of test names; implementation and test coverage reported **separately** so *implemented but untested* stays visible; blockquoted example identifiers skipped; non-zero exit on dead citations only; optional `specCoverage` config with real defaults) · `recipes/vite-ts` (`spec:coverage` wired in, the absence note deleted) · `.claude/skills/plan-goal` (checklist overlap sharpened to *can these be committed separately*) · **Backlog** (journey end-to-end coverage moved to `/sanity-check` with what it needs) |
+| The document set is complete, and nothing has fallen between tech-spec and design-guide | 2026-08-25 | `doc/design-guide.md` (universal shape rules, each carrying its *when not to*; the bracketed module-header citation format `spec-coverage` depends on) · `doc/style-guide.md` (v1's scaffolding, empty, deleted by a project with no visual surface) · `doc/tech-spec.md` (**Architecture** for this project's own rules, the per-decision structure, *Resolving what domain-spec left open*, **Testing strategy**, and the design-guide boundary stated in both headers) · `doc/discovery/README.md` (freeze rule, dated naming, evidence per finding) · `tools/check-links.mjs` |
