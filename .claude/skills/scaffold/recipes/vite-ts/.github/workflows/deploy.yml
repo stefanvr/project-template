@@ -4,8 +4,6 @@
 # published, so a red build cannot reach the live site. Deploying a skeleton before there is
 # anything worth deploying is deliberate — it flushes out the deployment-only failures while there
 # are three files rather than three hundred, and none of those failures are visible to a local test.
-#
-# Requires one manual step this file cannot do: Settings → Pages → Source must be "GitHub Actions".
 
 name: Deploy
 
@@ -28,11 +26,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # node-version-file rather than a literal: CI reads the same .nvmrc the developer's shell
       # does, so the two cannot drift apart silently.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -48,8 +46,15 @@ jobs:
       - run: npx playwright install chromium
       - run: npm run test:e2e
 
+      # enablement: true turns Pages on via the API, so there is no manual repository setting to
+      # remember. Without it the deploy job fails on a repository nobody has visited Settings for,
+      # which is a confusing first failure on a pipeline that is otherwise correct.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       # GitHub project pages are served from /<repo>/, so the built asset paths have to match or
-      # every script and stylesheet 404s on a site that otherwise looks fine.
+      # every script and stylesheet 404s on a site that otherwise looks perfectly fine.
       - run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/

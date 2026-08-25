@@ -46,6 +46,13 @@ things the interview settled.
 needed it is exactly the kind of thing that is never removed. If the recipe carries something this
 project has no use for, drop it and say so.
 
+**Install before the first commit, and commit the lockfile.** Run `npm install` as part of
+scaffolding, and include `package-lock.json` in the scaffold commit. CI needs it for two separate
+reasons: `npm ci` refuses to run without one, and `actions/setup-node`'s dependency cache fails the
+job outright when it cannot find one — before a single test executes. A recipe cannot ship a
+lockfile, because that would pin whatever versions its author happened to have, so generating it is
+the scaffold's job and is easy to forget. It has already failed one first CI run this way.
+
 **Scripts are named the same in every project** — `dev`, `test`, `test:e2e`, `typecheck`,
 `spec:coverage` — so that muscle memory and the other skills both transfer. A script name pointing
 at something that does not exist is worse than an absent script; add it when it works.

@@ -10,8 +10,11 @@ different directions.
 
 - **A browser surface exists.** Playwright is here because there is something to look at. A library
   or CLI should not take this recipe.
-- **GitHub, with Pages enabled.** The workflow needs Pages set to *GitHub Actions* as its source —
-  a repository setting, not a file, and the one manual step this recipe cannot do for you.
+- **GitHub, with Actions permitted to configure Pages.** The workflow turns Pages on itself, via
+  `actions/configure-pages` with `enablement: true`, so there is no repository setting to remember
+  and no confusing first failure on a pipeline that is otherwise correct. An organisation that
+  forbids Actions from changing Pages settings is the one case still needing
+  *Settings → Pages → Source* by hand.
 - **Node from `.nvmrc`.** CI reads the same file the developer's shell does, so they cannot drift.
 - **`main` is the integration branch**, matching `workflow.md`.
 
@@ -43,6 +46,11 @@ decoration: the build identifier is the longest unbreakable-looking string on th
 likely thing to force a horizontal scroll.
 
 ## Versions
+
+**There is deliberately no `package-lock.json` here.** Shipping one would pin whatever versions the
+recipe's author happened to resolve, which is how a template starts handing every new project a
+frozen past. `/scaffold` runs `npm install` and commits the lockfile it generates — and must, since
+CI fails without one.
 
 The dependency versions here are a starting point, not a decision. `/scaffold` should check what the
 current majors are rather than installing whatever this file happened to say — a recipe that pins
