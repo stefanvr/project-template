@@ -46,7 +46,10 @@ recipe two, promoted from a real project rather than pre-built.
       the SSH-and-WSL forward obligation, and gained a fourth silent failure found while writing it:
       heredocs and apostrophes nested inside a shell command string break with an error pointing
       somewhere unrelated
-- [ ] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, and the guard
+- [x] `.claude/skills/scaffold/SKILL.md` — the interview, recipe selection, the guard, git with
+      a verified remote, and deploy-on-day-one. *Nothing new to promote:* every rule in it was
+      already settled in `workflow.md` or `environment.md`, which is what a skill carrying
+      procedure rather than rationale should look like
 - [ ] `recipes/vite-ts/` — the files themselves, plus `RECIPE.md` saying what it assumes and what it
       deliberately leaves out
 - [ ] Deploy pipeline in the recipe: CI runs the tests, then deploys to **GitHub Pages**, with a
