@@ -78,23 +78,35 @@ appear in **Now**.
 Goals, not tasks. Each is one line stating an outcome; it gets its checklist when it reaches
 Planning, not before.
 
-- [ ] **The template is proven by starting a real project with it.** Trazer — a Traz/Arkanoid-type
-      game — in a fresh repository copied from this template, taken to one playable slice using
-      `/scaffold`, `/discover`, `/event-storm`, `/story-map`, `/plan-goal` and `/build-stage`. Every
-      format failure found is recorded back here.
-      - **Why Trazer rather than the alternatives:** it is the adversarial case. An arcade game is
-        simulation — physics, collision, per-frame state — with barely any domain events, which is
-        precisely the shape event storming fits worst. If `domain-spec.md`'s *When it does not fit*
-        fallbacks hold there, they hold anywhere. It is also small, and existing input for it can be
-        frozen as the first `/discover` artifact rather than manufacturing one.
-      - **What it exercises that nothing has.** Four of the seven skills have never run: `/discover`,
-        `/event-storm`, `/story-map` and `/scaffold`. Only `/plan-goal` and `/build-stage` have been
-        used for real, and `/scaffold`'s recipe was verified by hand-copying rather than by running
-        the skill. A conversion would test the document formats; only a greenfield start tests the
-        skills, which are the less proven half.
-      - **A conversion is not a greenfield start**, and the earlier wording of this item confused
-        them. Re-deriving Garden from its own domain-spec is a greenfield start with unusually good
-        input, not a rebuild — see **Parked**.
+- [ ] **The defects the Trazer run found are fixed.** Nine, all decided and none needing discussion
+      — the proportional-gate case. `A2` example content outside its delete-block, so a correctly
+      followed copy sequence leaves a library story map in a game project (audit `design-guide` and
+      `style-guide` the same way) · `A3` the bracket requirement missing from `design-guide` §Tests,
+      which measurably cost **16 rules falsely reported untested**, plus its unstated inverse —
+      `spec-coverage` scans whole files, so a bracketed identifier in a stray comment inflates
+      coverage, and a green report nobody trusts is worse than the red one it replaced · `A4` the
+      reachability clause, the **third** recorded instance of the same `plan-goal` failure · `B1` the
+      recipe's shipped tooling tests executing nowhere, contradicting `.dev-template`'s stated reason
+      for shipping them · `B2` `@types/node` tracking the Node major rather than its own latest ·
+      `C1`–`C3` environment additions · `E` the placeholder-surface pattern.
+      - **Fix text already exists and is quotable verbatim:** A3 from Trazer's `doc/design-guide.md`
+        §Tests, A4 from its `doc/workflow.md` §4, B1 as a verified three-line `package.json` change.
+        Trazer's `doc/environment.md` carries C1–C3 written out, +66 lines. No skill was tweaked
+        there and all three tools are byte-identical, so nothing else needs back-porting.
+- [ ] **Modelling work has branch discipline.** `workflow.md` defines `goal/{slug}` for building and
+      says nothing about discovery, storming or mapping — so the Trazer run did all three on `main`.
+      The shape that run suggests: after scaffolding, `/discover`, `/event-storm` and `/story-map`
+      share one branch, and `/plan-goal` plus `/build-stage` then run on the goal branch as now.
+- [ ] **Storming and mapping interleave rather than complete.** `/event-storm` pushes to cover more
+      of the domain before `/story-map` is offered anything, where the two are an iterative pair:
+      storm one area, map it, build a slice, come back. An unfinished domain is not a reason to keep
+      storming, and the skills should hand over early rather than treating completeness as the gate.
+- [ ] **A stand-alone step for changing how something looks and feels.** Twice now — Q&C and Trazer —
+      the UX arrived different from what was intended: it brought genuinely new ideas, but not the
+      ones in mind, and there is no route to revisit it without replanning a goal. Needs real design
+      before it can be planned: what it reads, what it produces, whether it edits
+      `implementation-spec` surfaces directly or proposes changes, and how it relates to
+      `style-guide`.
 - [ ] **The documents can be audited against the code in one pass.** `/sanity-check`, which runs the
       coverage script and adds the judgement calls it cannot make.
       - **Carries a forward obligation from the domain-spec goal:** it must report **ceremonial
@@ -103,6 +115,16 @@ Planning, not before.
         symptoms of event storming being forced onto something that is not a workflow, which is the
         failure mode most likely to bite. Defined in [domain-spec.md](domain-spec.md)'s *When it
         does not fit*; nothing enforces it yet.
+      - **A1, severity high, from the Trazer run:** it is referenced in **seven shipped files**,
+        including the `CLAUDE.md` routing table that every session reads first. The template ships
+        promising a command that is not there, and four forward obligations hang off it.
+      - **A5 — nothing checks rules against journeys and goals.** `spec:coverage` compares declared
+        rules against code and tests only. A rule carried by no journey and claimed by no goal is
+        invisible to every tool, right up until the release it is missing from. Found by hand.
+      - **A6 — *Release gap* is defined in the less dangerous direction.** It reads *domain areas
+        with no goal*; the gap that actually bit was the inverse — a backbone activity with **no
+        domain area at all**, which declares no identifiers and so cannot appear as uncovered
+        anything. State both directions.
       - **Deliberately after the Trazer test:** run against this repository today it would report
         three uncovered stubs and stop. Its three obligations all need real specifications, real
         modules citing them and a real end-to-end suite — none of which exist here.
@@ -159,3 +181,4 @@ carries identifiers — until then, deliberately empty rather than guessed at.
 | A rule with no test, and a test citing a rule that no longer exists, are both findable by running a command | 2026-08-25 | `tools/spec-coverage.mjs` with its fixtures and tests (runner-agnostic, reading identifiers out of test names; implementation and test coverage reported **separately** so *implemented but untested* stays visible; blockquoted example identifiers skipped; non-zero exit on dead citations only; optional `specCoverage` config with real defaults) · `recipes/vite-ts` (`spec:coverage` wired in, the absence note deleted) · `.claude/skills/plan-goal` (checklist overlap sharpened to *can these be committed separately*) · **Backlog** (journey end-to-end coverage moved to `/sanity-check` with what it needs) |
 | The document set is complete, and nothing has fallen between tech-spec and design-guide | 2026-08-25 | `doc/design-guide.md` (universal shape rules, each carrying its *when not to*; the bracketed module-header citation format `spec-coverage` depends on) · `doc/style-guide.md` (v1's scaffolding, empty, deleted by a project with no visual surface) · `doc/tech-spec.md` (**Architecture** for this project's own rules, the per-decision structure, *Resolving what domain-spec left open*, **Testing strategy**, and the design-guide boundary stated in both headers) · `doc/discovery/README.md` (freeze rule, dated naming, evidence per finding) · `tools/check-links.mjs` |
 | A project copied from the template starts clean, and the copy sequence is stated once | 2026-08-25 | `.dev-template` — now the single source: `README.md` named in the sequence, `tools/` kept in full with its tests and fixtures, and what *not* to delete · `README.md` and `.claude/skills/scaffold` both point at it rather than restating a list that had already drifted in all three places at once · `doc/workflow.md` and `.claude/skills/plan-goal` (the planning gate is proportional — a goal with no open questions is planned in one message, but still gets its outcome, its **Try it** and its promotion) |
+| The template is proven by starting a real project with it | 2026-08-26 | `doc/discovery/2026-08-26-trazer-run.md` — frozen findings from the Trazer build: 6 template defects, 3 recipe defects, 3 environment additions, **11 mechanisms confirmed working**, and 1 pattern worth adopting · the defects became the goals now in **Backlog** · **the adversarial case held**: level unlocking came out as a `DERIVATION` rather than an invented `Level unlocked` event, caught by the ceremonial-sticky test, which is the worry that started v2 |
